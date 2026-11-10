@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Canvas imprimibles · Gestión de la innovación con IA · Distilled Innovation</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#0F3B49;--blue:#469DE6;--cyan:#BCF8FF;--mint:#00FFCC;--yellow:#FECB28;--ink:#1A1A1A;--gray:#F2F2F2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Montserrat,'Segoe UI',sans-serif;color:var(--ink);background:#dfe7ea}
+@page{size:A4 landscape;margin:0}
+.bar{position:sticky;top:0;background:var(--teal);color:#fff;padding:12px 24px;display:flex;gap:16px;align-items:center;z-index:2}
+.bar b{flex:1}.bar button{background:var(--yellow);border:0;border-radius:99px;padding:8px 18px;font:600 14px Montserrat;cursor:pointer}
+.page{width:297mm;height:210mm;margin:20px auto;background:#fff;position:relative;overflow:hidden;padding:14mm 14mm 18mm;page-break-after:always;box-shadow:0 4px 18px rgba(15,59,73,.18)}
+.page header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6mm}
+.pill{background:var(--teal);color:#fff;border-radius:99px;padding:6px 20px;font-weight:700;font-size:20px}
+.tag{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--blue);text-transform:uppercase}
+.meta{font-size:11px;color:#556;display:flex;gap:18px}
+.meta span{border-bottom:1px solid #9ab;min-width:120px;display:inline-block}
+.grid{display:grid;gap:4mm;height:calc(100% - 22mm)}
+.box{border:1.5px solid var(--teal);border-radius:10px;padding:3mm 4mm;position:relative}
+.box h4{font-size:12px;color:var(--teal);font-weight:700;display:flex;gap:6px;align-items:center}
+.box h4 i{font-style:normal;background:var(--blue);color:#fff;border-radius:50%;width:20px;height:20px;display:inline-grid;place-items:center;font-size:11px}
+.box p{font-size:9.5px;color:#567;margin-top:1mm}
+.box.hl{border-color:var(--blue);background:linear-gradient(180deg,#fff, #f3fdff)}
+.box.y{border:2.5px solid var(--yellow)}
+.wave{position:absolute;left:0;right:0;bottom:0;height:14mm}
+.foot{position:absolute;bottom:3mm;left:14mm;font-size:9px;color:var(--teal);font-weight:600}
+.quad{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0;border:2px solid var(--teal);border-radius:12px;overflow:hidden}
+.quad div{border:1px dashed #9bb;padding:4mm;font-size:12px;font-weight:700;color:var(--teal)}
+.quad div small{display:block;font-weight:400;color:#567;font-size:10px}
+.axis{font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.1em;text-transform:uppercase}
+table{width:100%;border-collapse:collapse;font-size:10px}
+th{background:var(--teal);color:#fff;padding:2.5mm;text-align:left;font-weight:600}
+td{border:1px solid #c5d3d8;height:16mm}
+@media print{body{background:#fff}.bar{display:none}.page{margin:0;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="bar"><b>Canvas imprimibles · Gestión de la innovación con IA</b><span>A4 horizontal · Imprime o guarda como PDF</span><button onclick="print()">Imprimir / PDF</button></div>
+
+<!-- 1 Scoping canvas -->
+<section class="page">
+<header><div><div class="tag">Paso 5 · Encuadrar</div><div class="pill">Scoping Canvas</div></div><div class="meta">Equipo <span></span> Fecha <span></span></div></header>
+<div class="grid" style="grid-template-columns:1fr 1.3fr 1fr;grid-template-rows:1fr 1fr 1fr">
+<div class="box" style="grid-row:span 1"><h4><i>1</i>Oportunidad · necesidad · problema</h4><p>La situación de partida y por qué vale la pena.</p></div>
+<div class="box y" style="grid-row:span 2"><h4><i>3</i>¿Cómo podríamos…?</h4><p>¿Cómo podríamos [verbo] para [quién] de modo que [resultado]? No menciones la solución.</p></div>
+<div class="box"><h4><i>4</i>Antecedentes</h4><p>Qué se ha intentado, qué hacen otros, fuerzas del Zoom Out que lo sustentan.</p></div>
+<div class="box"><h4><i>2</i>Objetivo SMART</h4><p>Específico, medible, alcanzable, relevante y con plazo.</p></div>
+<div class="box"><h4><i>5</i>Segmento / público objetivo</h4><p>Para quién es y a quién afecta.</p></div>
+<div class="box hl" style="grid-column:span 2"><h4><i>6</i>Resultados esperados</h4><p>Qué cambia si lo resolvemos y cómo lo notamos (señales medibles).</p></div>
+<div class="box"><h4>Supuestos y preguntas</h4><p>Claridad __ · Apertura __ · Foco __ · Coherencia __ (1–5)</p></div>
+</div>
+<svg class="wave" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 30 C300 0 600 60 1200 20 V60 H0Z" fill="#BCF8FF"/></svg>
+<div class="foot">Distilled Innovation · distilledinnovation.co</div>
+</section>
+
+<!-- 2 Radar -->
+<section class="page">
+<header><div><div class="tag">Paso 2 · Vigilar</div><div class="pill">Radar de señales · certeza × tiempo</div></div><div class="meta">Sector <span></span> Fecha <span></span></div></header>
+<div style="display:grid;grid-template-columns:8mm 1fr 70mm;gap:4mm;height:calc(100% - 22mm)">
+<div class="axis" style="writing-mode:vertical-rl;transform:rotate(180deg);text-align:center">Baja certeza ——— Alta certeza</div>
+<div style="display:grid;grid-template-rows:1fr 6mm">
+<div class="quad"><div>HOY · CIERTO<small>Actuar ya · defender posición</small></div><div>FUTURO · CIERTO<small>Prepararse ahora · construir ventaja</small></div><div>HOY · INCIERTO<small>Monitorear de cerca · puede acelerarse</small></div><div style="background:#f3fdff">FUTURO · INCIERTO<small>Señales débiles · aquí está el venture ⭐</small></div></div>
+<div class="axis" style="text-align:center">Hoy ——————— Tiempo ——————— 3 a 5 años</div></div>
+<div class="grid" style="grid-template-rows:1fr 1fr"><div class="box y"><h4>⭐ Señal más crítica y menos observada</h4></div><div class="box"><h4>Patrón oculto</h4><p>¿Qué conecta las señales más críticas?</p></div></div>
+</div>
+<div class="foot">Distilled Innovation · distilledinnovation.co</div>
+</section>
+
+<!-- 3 Matriz VxF -->
+<section class="page">
+<header><div><div class="tag">Paso 6 · Idear y analizar</div><div class="pill">Matriz viabilidad × factibilidad</div></div><div class="meta">Reto <span style="min-width:300px"></span></div></header>
+<div style="display:grid;grid-template-columns:8mm 1fr;gap:3mm;height:calc(100% - 26mm)">
+<div class="axis" style="writing-mode:vertical-rl;transform:rotate(180deg);text-align:center">Viabilidad (sentido para cliente y negocio) →</div>
+<div class="quad"><div>APUESTA<small>Vale la pena, necesita capacidades nuevas: guardar</small></div><div style="background:#effffb">GANADORA<small>Elegir aquí para el concepto</small></div><div>DESCARTAR<small>Dejar ir</small></div><div>POTENCIAR<small>Mejorar la propuesta de valor antes de descartar</small></div></div>
+</div>
+<div class="axis" style="text-align:center;margin-top:2mm">Factibilidad (podemos construirla) →</div>
+<div class="foot">Distilled Innovation · distilledinnovation.co</div>
+</section>
+
+<!-- 4 Ficha de concepto -->
+<section class="page">
+<header><div><div class="tag">Paso 7 · Concepto</div><div class="pill">Ficha de concepto</div></div><div class="meta">Equipo <span></span> Fecha <span></span></div></header>
+<div class="grid" style="grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr)">
+<div class="box y"><h4><i>1</i>Nombre y frase</h4></div><div class="box"><h4><i>2</i>Para quién</h4></div><div class="box"><h4><i>3</i>Problema o necesidad</h4></div>
+<div class="box" style="grid-row:span 1"><h4><i>4</i>Cómo funciona</h4><p>3 a 5 pasos de la experiencia</p></div><div class="box"><h4><i>5</i>Valor para el cliente</h4></div><div class="box"><h4><i>6</i>Valor para la empresa</h4></div>
+<div class="box"><h4><i>7</i>Por qué ahora</h4><p>Fuerza del entorno</p></div><div class="box"><h4><i>8</i>Por qué nosotros</h4></div><div class="box hl"><h4><i>9</i>Supuestos críticos</h4><p>Del más al menos riesgoso</p></div>
+</div>
+<div class="foot">Distilled Innovation · distilledinnovation.co</div>
+</section>
+
+<!-- 5 Test & Learning -->
+<section class="page">
+<header><div><div class="tag">Paso 9 · Probar</div><div class="pill">Test Card · Learning Card</div></div><div class="meta">Responsable <span></span> Fechas <span></span></div></header>
+<div class="grid" style="grid-template-columns:1fr 1fr">
+<div class="grid" style="grid-template-rows:repeat(5,1fr);height:100%"><div class="box"><h4><i>1</i>Creemos que…</h4></div><div class="box"><h4><i>2</i>Para verificarlo, vamos a…</h4></div><div class="box"><h4><i>3</i>Y mediremos…</h4></div><div class="box y"><h4><i>4</i>Estamos en lo correcto si…</h4><p>Número + plazo</p></div><div class="box"><h4>Fracaso si… · costo · confianza</h4></div></div>
+<div class="grid" style="grid-template-rows:repeat(4,1fr);height:100%"><div class="box"><h4><i>1</i>Creíamos que…</h4></div><div class="box"><h4><i>2</i>Observamos…</h4><p>Datos, no opiniones</p></div><div class="box"><h4><i>3</i>De esto aprendimos que…</h4></div><div class="box hl"><h4><i>4</i>Por lo tanto, vamos a…</h4><p>☐ Seguir ☐ Ajustar ☐ Detener</p></div></div>
+</div>
+<div class="foot">Distilled Innovation · distilledinnovation.co</div>
+</section>
+
+<!-- 6 Hoja de ruta -->
+<section class="page">
+<header><div><div class="tag">Paso 10 · Decidir</div><div class="pill">Hoja de ruta 3 · 6 · 12 meses</div></div><div class="meta">Inicio <span></span> Revisión mensual <span></span></div></header>
+<table><tr><th>Oportunidad · nivel · horizonte</th><th>Responsable y acción en 7 días</th><th>Hito 3 meses</th><th>Hito 6 meses</th><th>Decisión al año</th><th>Indicador y criterio</th><th>Límite horas / $</th></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table>
+<div class="grid" style="grid-template-columns:1fr 1fr;height:38mm;margin-top:4mm"><div class="box"><h4>En reserva · condición para retomar</h4></div><div class="box y"><h4>Primer paso en 48 horas</h4></div></div>
+<div class="foot">Distilled Innovation · distilledinnovation.co</div>
+</section>
+</body>
+</html>

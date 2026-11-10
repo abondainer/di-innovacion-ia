@@ -1,0 +1,13 @@
+# Test Card
+
+> Paso 9 · Antes de probar · Distilled Innovation · distilledinnovation.co
+
+```txt
+Creemos que…
+Para verificarlo, vamos a…
+Y mediremos…
+Estamos en lo correcto si… (número + plazo)
+Fracaso si…
+Costo: bajo / medio / alto · Tiempo para datos: · Confianza de la evidencia: bajo / medio / alto
+Responsable: · Fecha de inicio: · Fecha de lectura:
+```
