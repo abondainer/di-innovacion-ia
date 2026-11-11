@@ -168,7 +168,7 @@ Capturar:`;
   const caseCard = (c, withId) => `<article class="case ${c.origen}" ${withId ? `id="caso-${c.id}"` : ''} style="--c:${grp(c.etapa).c}">
     <header><span class="case-orig">${c.origen === 'distilled' ? '<img src="assets/brand/monogram-navy.png" alt="">Distilled Innovation' : 'América Latina · fuente pública'}</span>
     <h4>${esc(c.org)} <small>${esc(c.anio)}</small></h4><span class="case-pasos">${esc(c.pasos)}</span></header>
-    <div class="case-b"><h5>Qué hicimos</h5><p>${esc(c.hicimos)}</p>
+    <div class="case-b"><h5>${c.origen === 'distilled' ? 'Qué hicimos' : 'Qué hicieron'}</h5><p>${esc(c.hicimos)}</p>
     <h5>Evidencia</h5><ul>${c.evidencia.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
     <div class="case-so"><h5>Qué sustenta del método</h5><p>${esc(c.demuestra)}</p>
     <div class="case-tools">${c.herramientas.map(([t, h]) => `<a href="${h}">${I('arrow-right')}${esc(t)}</a>`).join('')}</div>
