@@ -8,7 +8,7 @@ Curso digital, sistema de prompts, plantillas y **skills de Claude** para gestio
 
 | Carpeta | Contenido |
 | --- | --- |
-| `index.html` + `assets/` | Curso web con 9 módulos, 6 visualizaciones 3D (Three.js), diagnóstico de madurez, matrices interactivas, generador de Test Card y caja de herramientas |
+| `index.html` + `assets/` | Curso web por secciones: 9 módulos, casos reales (Distilled y América Latina), 6 visualizaciones 3D (Three.js), diagnóstico de madurez, matrices interactivas, generador de Test Card y caja de herramientas |
 | `prompts/` | Sistema de prompts: 48 prompts y agentes (system prompts) en 8 archivos, **fuente única** del curso |
 | `skills/` | 8 skills de Claude del Distilled AI Innovation Loop |
 | `plantillas/` | 12 plantillas en Markdown + `canvas-imprimibles.html` (A4, imprimir o guardar como PDF) |
@@ -17,7 +17,14 @@ Curso digital, sistema de prompts, plantillas y **skills de Claude** para gestio
 
 ## El Distilled AI Innovation Loop
 
-`Contexto → Zoom Out → Radar → Clasificar → Priorizar → Encuadrar → Idear → Concepto → Prototipar → Probar → Decidir`
+Cuatro etapas que agrupan once pasos:
+
+| Etapa | Pregunta | Pasos |
+| --- | --- | --- |
+| 1 · Explorar | ¿Qué está cambiando a nuestro alrededor? | 0 Contexto · 1 Zoom Out · 2 Radar |
+| 2 · Enfocar | ¿Qué reto vale la pena resolver? | 3 Clasificar · 4 Priorizar · 5 Encuadrar |
+| 3 · Crear | ¿Qué respuesta podemos diseñar? | 6 Idear · 7 Concepto |
+| 4 · Validar y decidir | ¿Qué aprendimos y qué hacemos ahora? | 8 Prototipar · 9 Probar · 10 Decidir |
 
 | Skill | Para qué |
 | --- | --- |

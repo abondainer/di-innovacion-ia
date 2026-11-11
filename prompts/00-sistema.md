@@ -6,9 +6,9 @@ Este sistema organiza todos los prompts, agentes y cadenas del curso **Gestión 
 
 | Formato | Qué es | Cuándo usarlo | Dónde se configura |
 | --- | --- | --- | --- |
-| 💬 Prompt | Instrucción puntual para una tarea | Un ejercicio concreto | Cualquier chat de IA |
-| 🧠 Agente | Instrucciones permanentes de rol, contexto y reglas (system prompt) | Cuando repites el mismo tipo de trabajo | Claude: Proyecto → Instrucciones · ChatGPT: GPT → Instrucciones · Gemini: Gem → Instrucciones |
-| 🧩 Skill | Paquete con método, pasos y formato de salida que el modelo activa cuando lo necesita | Procesos repetibles que quieres estandarizar | Claude: Configuración → Capacidades → Skills (carpeta `skills/` de este repo) |
+| Prompt | Instrucción puntual para una tarea | Un ejercicio concreto | Cualquier chat de IA |
+| Agente | Instrucciones permanentes de rol, contexto y reglas (system prompt) | Cuando repites el mismo tipo de trabajo | Claude: Proyecto → Instrucciones · ChatGPT: GPT → Instrucciones · Gemini: Gem → Instrucciones |
+| Skill | Paquete con método, pasos y formato de salida que el modelo activa cuando lo necesita | Procesos repetibles que quieres estandarizar | Claude: Configuración → Capacidades → Skills (carpeta `skills/` de este repo) |
 
 ## Anatomía de un prompt Distilled (R-C-T-F-L)
 

@@ -24,7 +24,9 @@ function stage(canvasId, { fov = 45, pos = [0, 4, 10], look = [0, 0, 0] } = {}) 
   const pl = new THREE.PointLight(C.mint, 18, 30); pl.position.set(-4, 3, 2); scene.add(pl);
   const labels = [];
   const S = { scene, camera, renderer, host, labels, visible: false, update: null, mouse: { x: 0, y: 0 } };
-  const resize = () => { const w = host.clientWidth, h = host.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); };
+  const base = new THREE.Vector3(...pos), tgt = new THREE.Vector3(...look);
+  const resize = () => { const w = host.clientWidth, h = host.clientHeight; if (!w || !h) return; renderer.setSize(w, h, false); camera.aspect = w / h;
+    const k = camera.aspect < 1.25 ? Math.pow(1.25 / camera.aspect, .8) : 1; camera.position.copy(tgt).add(base.clone().sub(tgt).multiplyScalar(k)); camera.lookAt(tgt); camera.updateProjectionMatrix(); };
   new ResizeObserver(resize).observe(host); resize();
   new IntersectionObserver(([e]) => { S.visible = e.isIntersecting; }, { threshold: .02 }).observe(host);
   host.addEventListener('pointermove', e => { const r = host.getBoundingClientRect(); S.mouse.x = (e.clientX - r.left) / r.width * 2 - 1; S.mouse.y = -((e.clientY - r.top) / r.height * 2 - 1); });
@@ -43,6 +45,8 @@ function stage(canvasId, { fov = 45, pos = [0, 4, 10], look = [0, 0, 0] } = {}) 
   return S;
 }
 const lerp = (a, b, k) => a + (b - a) * k;
+const ICO_PLAY = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>';
+const ICO_PAUSE = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>';
 
 /* ============ HERO · partículas que se destilan ============ */
 (() => {
@@ -99,8 +103,8 @@ const lerp = (a, b, k) => a + (b - a) * k;
     S.label(name, base, 'lbl');
     return { mesh, cap, h: [h0, h1], cur: h0 };
   });
-  const lA = new THREE.Object3D(); lA.position.set(-4.6, 5.4, 0); grp.add(lA); S.label('<span style="color:#469DE6">■</span> Costo de explorar', lA);
-  const lB = new THREE.Object3D(); lB.position.set(4.6, 5.4, 0); grp.add(lB); S.label('<span style="color:#FECB28">■</span> Valor del juicio humano', lB);
+  const lA = new THREE.Object3D(); lA.position.set(-4.6, 5.4, 0); grp.add(lA); S.label('<span class="sw" style="background:#469DE6"></span> Costo de explorar', lA);
+  const lB = new THREE.Object3D(); lB.position.set(4.6, 5.4, 0); grp.add(lB); S.label('<span class="sw" style="background:#FECB28"></span> Valor del juicio humano', lB);
   let state = 0;
   const TXT = [['Antes de la IA', 'Explorar era caro: investigar, sintetizar y prototipar consumía semanas. Las organizaciones innovaban poco porque cada intento costaba mucho.'],
                ['Con IA', 'Generar, sintetizar y prototipar se vuelve casi gratis. El cuello de botella se mueve al criterio, la evidencia y la decisión: ahí está ahora la ventaja competitiva.']];
@@ -167,49 +171,62 @@ const lerp = (a, b, k) => a + (b - a) * k;
 
 /* ============ M2 · Distilled AI Innovation Loop ============ */
 (() => {
-  const S = stage('scene-loop', { pos: [0, 5.2, 10.5], look: [0, -.4, 0] }); if (!S) return;
+  const S = stage('scene-loop', { pos: [0, 5.2, 10.5], look: [0, -2.0, 0] }); if (!S) return;
   const L = window.DI_LOOP || []; const N = L.length, R = 4.2;
   const ring = new THREE.Group(); S.scene.add(ring);
-  const tube = new THREE.Mesh(new THREE.TorusGeometry(R, .05, 16, 220), new THREE.MeshBasicMaterial({ color: C.blue, transparent: true, opacity: .6 })); tube.rotation.x = Math.PI / 2; ring.add(tube);
+  const ST = window.DI_STAGES || []; const stHex = k => (ST.find(x => x.k === k) || {}).hex || C.cyan;
+  // un arco por etapa (4 grandes etapas que agrupan los 11 pasos)
+  const arcs = ST.map(e => {
+    const idx = L.map((s, i) => s.e === e.k ? i : -1).filter(i => i >= 0); if (!idx.length) return null;
+    const step = Math.PI * 2 / N, a0 = idx[0] * step - step * .42, a1 = idx[idx.length - 1] * step + step * .42;
+    const tor = new THREE.Mesh(new THREE.TorusGeometry(R, .11, 12, 80, a1 - a0), new THREE.MeshBasicMaterial({ color: e.hex, transparent: true, opacity: .55 }));
+    tor.rotation.x = Math.PI / 2; tor.rotation.z = Math.PI / 2 - a1; ring.add(tor);
+    return { e, tor };
+  }).filter(Boolean);
   // flujo de partículas
   const FN = 420, fp = new Float32Array(FN * 3), fa = Array.from({ length: FN }, () => Math.random() * Math.PI * 2);
   const flow = new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(fp, 3)), new THREE.PointsMaterial({ size: .12, map: dotTex, color: C.mint, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
   ring.add(flow);
   const nodes = L.map((s, i) => {
     const a = i / N * Math.PI * 2;
-    const m = new THREE.Mesh(new THREE.SphereGeometry(.34, 32, 32), new THREE.MeshStandardMaterial({ color: C.cyan, emissive: C.blue, emissiveIntensity: .35, metalness: .3, roughness: .3 }));
+    const m = new THREE.Mesh(new THREE.SphereGeometry(.34, 32, 32), new THREE.MeshStandardMaterial({ color: stHex(s.e), emissive: stHex(s.e), emissiveIntensity: .25, metalness: .3, roughness: .3 }));
     m.position.set(Math.sin(a) * R, 0, Math.cos(a) * R); m.userData.i = i; ring.add(m);
     const lb = S.label(`<b>${s.n}</b> · ${s.t}`, m); return { m, lb, a };
   });
   const center = new THREE.Mesh(new THREE.OctahedronGeometry(.8, 0), new THREE.MeshStandardMaterial({ color: C.yellow, emissive: C.yellow, emissiveIntensity: .4, flatShading: true })); S.scene.add(center);
   let act = 0, playing = !reduce, lastSwitch = 0, rotT = 0;
   const panel = document.getElementById('loop-panel');
+  const hud = S.host.querySelector('.hud'); if (hud && ST.length) hud.insertAdjacentHTML('beforeend', `<div class="legend">${ST.map(e => `<span style="--c:${e.c}">${e.n} · ${e.t}</span>`).join('')}</div>`);
   const show = i => {
     act = (i + N) % N; const s = L[act];
-    panel.innerHTML = `<h4>Paso ${s.n} · ${s.t}</h4>${s.d}<div style="margin-top:8px;font-size:12.5px;color:#BCF8FF">Artefacto: <b>${s.a}</b> · Skill: <code style="background:rgba(255,255,255,.1);color:#fff">${s.s}</code> · <a href="#${s.m}" style="color:#FECB28">Ir al módulo →</a></div>`;
+    const e = ST.find(x => x.k === s.e) || {};
+    panel.innerHTML = `<span class="pnl-stg" style="--c:${e.c}">Etapa ${e.n} · ${e.t}</span><h4>Paso ${s.n} · ${s.t}</h4>${s.d}<div style="margin-top:8px;font-size:12.5px;color:#BCF8FF">Artefacto: <b>${s.a}</b> · Skill: <code style="background:rgba(255,255,255,.1);color:#fff">${s.s}</code> · <a href="#${s.m}" style="color:#FECB28">Ir al módulo →</a></div>`;
+    window.DI_LOOP_ACTIVE && window.DI_LOOP_ACTIVE(act);
     rotT = -nodes[act].a;
   };
   show(0);
+  window.DI_LOOP_SHOW = i => { show(i); playing = false; pb.innerHTML = ICO_PLAY; pb.classList.remove('on'); };
   document.getElementById('loop-prev').onclick = () => { show(act - 1); lastSwitch = performance.now(); };
   document.getElementById('loop-next').onclick = () => { show(act + 1); lastSwitch = performance.now(); };
-  const pb = document.getElementById('loop-play'); pb.classList.toggle('on', playing); pb.textContent = playing ? '❚❚' : '▶';
-  pb.onclick = () => { playing = !playing; pb.textContent = playing ? '❚❚' : '▶'; pb.classList.toggle('on', playing); };
+  const pb = document.getElementById('loop-play'); pb.classList.toggle('on', playing); pb.innerHTML = playing ? ICO_PAUSE : ICO_PLAY;
+  pb.onclick = () => { playing = !playing; pb.innerHTML = playing ? ICO_PAUSE : ICO_PLAY; pb.classList.toggle('on', playing); };
   const ray = new THREE.Raycaster(), v2 = new THREE.Vector2();
   S.host.addEventListener('click', e => {
     if (e.target.closest('.ctrls, .panel')) return;
     const r = S.host.getBoundingClientRect(); v2.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height * 2 - 1));
     ray.setFromCamera(v2, S.camera); const hit = ray.intersectObjects(nodes.map(n => n.m))[0];
-    if (hit) { show(hit.object.userData.i); playing = false; pb.textContent = '▶'; pb.classList.remove('on'); }
+    if (hit) { show(hit.object.userData.i); playing = false; pb.innerHTML = ICO_PLAY; pb.classList.remove('on'); }
   });
   S.host.style.cursor = 'pointer';
   let t0 = 0;
   S.update = (t) => {
     if (playing && t - t0 > 3.6) { t0 = t; show(act + 1); }
     let d = rotT - ring.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d)); ring.rotation.y += d * .06;
-    nodes.forEach((n, i) => { const on = i === act; const s = lerp(n.m.scale.x, on ? 1.7 : 1, .12); n.m.scale.setScalar(s); n.m.material.color.setHex(on ? C.yellow : C.cyan); n.m.material.emissive.setHex(on ? C.yellow : C.blue); n.lb.el.style.fontSize = on ? '14px' : '11px'; n.lb.el.style.borderColor = on ? '#FECB28' : ''; });
+    nodes.forEach((n, i) => { const on = i === act; const s = lerp(n.m.scale.x, on ? 1.7 : 1, .12); n.m.scale.setScalar(s); n.m.material.emissiveIntensity = on ? .9 : .22; n.lb.el.style.fontSize = on ? '14px' : '11px'; n.lb.el.style.borderColor = on ? '#FECB28' : ''; });
     for (let i = 0; i < FN; i++) { const a = fa[i] + t * .35; const w = Math.sin(i * 12.9) * .12; fp.set([Math.sin(a) * (R + w), Math.cos(i * 7.3 + t) * .08, Math.cos(a) * (R + w)], i * 3); }
     flow.geometry.attributes.position.needsUpdate = true;
     center.rotation.y = t * .6; center.rotation.x = t * .3;
+    const ae = L[act] && L[act].e; arcs.forEach(a => { const on = a.e.k === ae; a.tor.material.opacity = lerp(a.tor.material.opacity, on ? .95 : .35, .1); });
   };
 })();
 

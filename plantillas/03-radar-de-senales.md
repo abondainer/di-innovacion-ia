@@ -12,6 +12,6 @@
                     BAJA CERTEZA
    HOY  ←———————— TIEMPO ————————→  FUTURO
 
-Señal más crítica y menos observada (⭐):
+Señal más crítica y menos observada (marcar con estrella):
 Patrón oculto que conecta las señales:
 ```

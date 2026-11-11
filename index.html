@@ -11,26 +11,36 @@
 </head>
 <body>
 
-<button class="menu-btn" aria-label="Abrir menú" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<header class="topbar">
+  <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false" id="menu-btn"><i data-lucide="menu" class="li"></i></button>
+  <span class="tb-title" id="tb-title">Gestión de la innovación con IA</span>
+  <button class="tb-ficha ficha-open" aria-label="Mi ficha de contexto" title="Mi ficha de contexto"><i data-lucide="clipboard-list" class="li"></i></button>
+</header>
+<div class="scrim" id="scrim"></div>
 
 <aside class="sidebar">
   <div class="brand"><img class="mono-img" src="assets/brand/monogram-white.png" alt="Distilled Innovation"><div><b>Gestión de la innovación con IA</b><small>Curso · Distilled Innovation</small></div></div>
   <div class="progress"><div class="track"><div class="fill" id="pfill"></div></div><span id="ptext">0 de 9 módulos completados</span></div>
+  <button class="side-ficha ficha-open" id="ficha-side"><i data-lucide="clipboard-list" class="li"></i><span>Mi ficha de contexto</span></button>
   <nav id="nav">
-    <a href="#inicio"><span class="n">★</span>Inicio</a>
+    <a href="#inicio"><span class="n"><i data-lucide="house" class="li"></i></span>Inicio</a>
     <div class="sep">Por qué</div>
     <a href="#m0" data-mod="m0"><span class="n">0</span>Cómo usar este curso</a>
     <a href="#m1" data-mod="m1"><span class="n">1</span>La innovación se transforma</a>
     <a href="#m2" data-mod="m2"><span class="n">2</span>Fundamentos y el loop</a>
-    <div class="sep">Cómo · el loop</div>
+    <div class="sep"><i class="sd" style="--c:#00FFCC"></i>Etapa 1 · Explorar</div>
     <a href="#m3" data-mod="m3"><span class="n">3</span>Vigilancia estratégica</a>
+    <div class="sep"><i class="sd" style="--c:#469DE6"></i>Etapa 2 · Enfocar</div>
     <a href="#m4" data-mod="m4"><span class="n">4</span>De la señal al reto</a>
+    <div class="sep"><i class="sd" style="--c:#FECB28"></i>Etapa 3 · Crear</div>
     <a href="#m5" data-mod="m5"><span class="n">5</span>Ideación y concepto</a>
+    <div class="sep"><i class="sd" style="--c:#BCF8FF"></i>Etapa 4 · Validar y decidir</div>
     <a href="#m6" data-mod="m6"><span class="n">6</span>Prototipos y experimentos</a>
     <a href="#m7" data-mod="m7"><span class="n">7</span>Portafolio y sistema</a>
     <div class="sep">Con quién</div>
+    <a href="#casos"><span class="n"><i data-lucide="briefcase" class="li"></i></span>Casos reales</a>
     <a href="#m8" data-mod="m8"><span class="n">8</span>Distilled te acompaña</a>
-    <a href="#kit"><span class="n">⚒</span>Caja de herramientas</a>
+    <a href="#kit"><span class="n"><i data-lucide="wrench" class="li"></i></span>Caja de herramientas</a>
   </nav>
   <div class="foot">distilledinnovation.co</div>
 </aside>
@@ -54,10 +64,10 @@
       <div><b id="nprompts">48</b><span>prompts y agentes</span></div>
       <div><b>8</b><span>skills de Claude</span></div>
       <div><b>12</b><span>plantillas</span></div>
+      <div><b id="ncasos">47</b><span>casos reales</span></div>
     </div>
   </div>
-  <div class="scroll-hint">Desliza ↓</div>
-  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" height="90" width="100%"><path d="M0 60 C360 0 720 120 1440 40 V120 H0Z" fill="#BCF8FF" opacity=".35"/><path d="M0 80 C400 30 900 120 1440 70 V120 H0Z" fill="#fff"/></svg>
+    <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" height="90" width="100%"><path d="M0 60 C360 0 720 120 1440 40 V120 H0Z" fill="#BCF8FF" opacity=".35"/><path d="M0 80 C400 30 900 120 1440 70 V120 H0Z" fill="#fff"/></svg>
 </header>
 
 <!-- ================= M0 ================= -->
@@ -68,9 +78,9 @@
   <p class="lead">El curso consolida y amplía los talleres de Distilled Innovation <i>IA para la gestión de la innovación</i>, <i>Innovar para seguir siendo relevantes</i> y <i>Venture Building Estratégico</i>. Cada módulo sigue la misma estructura: <b>qué es → por qué importa → cómo se hace → trabaja con IA</b>.</p>
 
   <div class="grid g3 reveal" style="margin-top:30px">
-    <div class="card"><div class="ic">💬</div><h4>Prompts</h4><p>Instrucciones puntuales para un ejercicio. Funcionan en Claude, ChatGPT, Gemini, Copilot o Notion AI. Reemplaza lo que esté entre <code>[CORCHETES]</code>.</p></div>
-    <div class="card"><div class="ic">🧠</div><h4>Agentes</h4><p>Instrucciones permanentes (system prompt) para un Proyecto de Claude, un GPT o un Gem. Úsalos cuando repites el mismo tipo de trabajo.</p></div>
-    <div class="card"><div class="ic">🧩</div><h4>Skills</h4><p>Paquetes con método, pasos y formato de salida que Claude activa cuando los necesita. Viven en el <a href="#" data-gh="skills">repositorio de GitHub</a>.</p></div>
+    <div class="card"><div class="ic"><i data-lucide="message-square" class="li"></i></div><h4>Prompts</h4><p>Instrucciones puntuales para un ejercicio. Funcionan en Claude, ChatGPT, Gemini, Copilot o Notion AI. Reemplaza lo que esté entre <code>[CORCHETES]</code>.</p></div>
+    <div class="card"><div class="ic"><i data-lucide="bot" class="li"></i></div><h4>Agentes</h4><p>Instrucciones permanentes (system prompt) para un Proyecto de Claude, un GPT o un Gem. Úsalos cuando repites el mismo tipo de trabajo.</p></div>
+    <div class="card"><div class="ic"><i data-lucide="puzzle" class="li"></i></div><h4>Skills</h4><p>Paquetes con método, pasos y formato de salida que Claude activa cuando los necesita. Viven en el <a href="#" data-gh="skills">repositorio de GitHub</a>.</p></div>
   </div>
 
   <h3 style="margin-top:44px">Tu ficha de contexto viaja contigo</h3>
@@ -86,7 +96,7 @@
     <div class="card"><h4>6 · Encadena</h4><small>Lo que produces en un paso es el insumo del siguiente. Guarda todo en un documento del equipo.</small></div>
   </div>
 
-  <div class="kit"><h3>🤖 Trabaja con IA</h3><div class="prompts" data-ids="copiloto-innovacion"></div>
+  <div class="kit"><h3><i data-lucide="sparkles" class="li h"></i>Trabaja con IA</h3><div class="prompts" data-ids="copiloto-innovacion"></div>
   <div class="skill-slot" data-skill="di-innovation-loop"></div></div>
 
   <div class="complete"><button class="btn primary mark" data-mod="m0">Marcar módulo como completado ✓</button></div>
@@ -119,14 +129,14 @@
   </div>
 
   <div class="grid g2" style="margin-top:36px">
-    <div class="card"><h4>🌊 Lo que se vuelve abundante</h4><ul><li>Generar ideas, textos e imágenes</li><li>Resumir y sintetizar información</li><li>Escanear tendencias y competidores</li><li>Construir prototipos de baja fidelidad</li><li>Redactar documentos de proyecto</li></ul></div>
-    <div class="card" style="border-color:var(--yellow)"><h4>💎 Lo que se vuelve escaso (y más valioso)</h4><ul><li><b>Criterio:</b> saber qué preguntar y qué descartar</li><li><b>Evidencia:</b> datos propios y aprendizaje real del cliente</li><li><b>Confianza:</b> relaciones, marca, reputación</li><li><b>Decisión:</b> la capacidad de elegir y renunciar</li><li><b>Integración:</b> convertir pruebas en operación</li></ul></div>
+    <div class="card"><h4><i data-lucide="waves" class="li h"></i>Lo que se vuelve abundante</h4><ul><li>Generar ideas, textos e imágenes</li><li>Resumir y sintetizar información</li><li>Escanear tendencias y competidores</li><li>Construir prototipos de baja fidelidad</li><li>Redactar documentos de proyecto</li></ul></div>
+    <div class="card" style="border-color:var(--yellow)"><h4><i data-lucide="gem" class="li h"></i>Lo que se vuelve escaso (y más valioso)</h4><ul><li><b>Criterio:</b> saber qué preguntar y qué descartar</li><li><b>Evidencia:</b> datos propios y aprendizaje real del cliente</li><li><b>Confianza:</b> relaciones, marca, reputación</li><li><b>Decisión:</b> la capacidad de elegir y renunciar</li><li><b>Integración:</b> convertir pruebas en operación</li></ul></div>
   </div>
 
   <h3 style="margin-top:44px">El riesgo de no ver la señal</h3>
   <div class="grid g3">
-    <div class="card"><span class="pill y">1975</span><h4>Kodak</h4><small>Un ingeniero de Kodak, Steve Sasson, construyó un prototipo de cámara digital en 1975. La empresa tenía la tecnología; lo que faltó fue decidir a tiempo cambiar su modelo de negocio.</small></div>
-    <div class="card"><span class="pill y">2000</span><h4>Blockbuster</h4><small>Según Marc Randolph, cofundador de Netflix (<i>That Will Never Work</i>, 2019), Blockbuster rechazó comprar Netflix por USD 50 millones en el año 2000.</small></div>
+    <div class="card"><span class="pill y">1975</span><h4>Kodak</h4><small>Un ingeniero de Kodak, Steve Sasson, construyó un prototipo de cámara digital en 1975. La empresa tenía la tecnología; lo que faltó fue decidir a tiempo cambiar su modelo de negocio.</small><a class="more" href="#caso-kodak">Ver el caso →</a></div>
+    <div class="card"><span class="pill y">2000</span><h4>Blockbuster</h4><small>Según Marc Randolph, cofundador de Netflix (<i>That Will Never Work</i>, 2019), Blockbuster rechazó comprar Netflix por USD 50 millones en el año 2000.</small><a class="more" href="#caso-blockbuster">Ver el caso →</a></div>
     <div class="card"><span class="pill m">Hoy</span><h4>Tu sector con IA</h4><small>La pregunta no es si la IA cambiará tu industria, sino qué parte de cómo creas, entregas y capturas valor se volverá abundante, y qué harás con lo que se vuelve escaso.</small></div>
   </div>
   <div class="callout"><b>Prepararse para el futuro significa desarrollar capacidad de adaptación, no garantizar inmunidad al cambio.</b> Las oportunidades que identifiques en este curso serán hipótesis para probar, no resultados garantizados.</div>
@@ -152,8 +162,10 @@
     </div>
   </div>
 
-  <div class="kit"><h3>🤖 Trabaja con IA</h3><div class="prompts" data-ids="exposicion-ia,mapa-humano-ia,politica-ia,cementerio"></div>
+  <div class="kit"><h3><i data-lucide="sparkles" class="li h"></i>Trabaja con IA</h3><div class="prompts" data-ids="exposicion-ia,mapa-humano-ia,politica-ia,cementerio"></div>
   <div class="skill-slot" data-skill="di-exposicion-ia"></div></div>
+
+  <div class="rel-cases" data-cases="notco,magalu,nubank,itau" data-title="Así se ve hoy en América Latina"></div>
 
   <div class="complete"><button class="btn yellow mark" data-mod="m1">Marcar módulo como completado ✓</button></div>
 </div>
@@ -172,9 +184,9 @@
   </div>
 
   <div class="grid g3">
-    <div class="card"><div class="ic">✦</div><h4>Crear valor</h4><p>Resolver una necesidad o permitir un progreso que alguien considera importante. El valor se juzga desde el cliente, no desde el entusiasmo de quien ofrece.</p><small><b>Pregunta:</b> ¿a quién ayudas y por qué te elegiría?</small></div>
-    <div class="card"><div class="ic">➜</div><h4>Entregar valor</h4><p>Organizar actividades, personas, canales y aliados para que el beneficio llegue de forma accesible, consistente y oportuna.</p><small><b>Pregunta:</b> ¿cómo te conocen, te compran y vuelven?</small></div>
-    <div class="card"><div class="ic">$</div><h4>Capturar valor</h4><p>Recuperar una parte del valor generado: ingresos, margen y flujo de caja. Vender más no siempre significa ganar más.</p><small><b>Pregunta:</b> ¿quién paga, por qué y cómo cobras?</small></div>
+    <div class="card"><div class="ic"><i data-lucide="lightbulb" class="li"></i></div><h4>Crear valor</h4><p>Resolver una necesidad o permitir un progreso que alguien considera importante. El valor se juzga desde el cliente, no desde el entusiasmo de quien ofrece.</p><small><b>Pregunta:</b> ¿a quién ayudas y por qué te elegiría?</small></div>
+    <div class="card"><div class="ic"><i data-lucide="truck" class="li"></i></div><h4>Entregar valor</h4><p>Organizar actividades, personas, canales y aliados para que el beneficio llegue de forma accesible, consistente y oportuna.</p><small><b>Pregunta:</b> ¿cómo te conocen, te compran y vuelven?</small></div>
+    <div class="card"><div class="ic"><i data-lucide="circle-dollar-sign" class="li"></i></div><h4>Capturar valor</h4><p>Recuperar una parte del valor generado: ingresos, margen y flujo de caja. Vender más no siempre significa ganar más.</p><small><b>Pregunta:</b> ¿quién paga, por qué y cómo cobras?</small></div>
   </div>
   <p class="muted" style="font-size:13px;margin-top:10px">Lectura basada en David J. Teece (2010), <i>Business Models, Business Strategy and Innovation</i>.</p>
 
@@ -204,15 +216,17 @@
   <p class="muted" style="font-size:13px;margin-top:10px">Baghai, Coley y White (1999), <i>The Alchemy of Growth</i>; síntesis de McKinsey. <b>Nivel ≠ horizonte:</b> una oferta nueva (N3) puede fortalecer el core (H1) o abrir crecimiento (H2).</p>
 
   <h3 style="margin-top:50px">El Distilled AI Innovation Loop</h3>
-  <p>El método que recorre el resto del curso: diez pasos, cada uno con un artefacto, un prompt, un agente y una skill. Haz clic en los nodos.</p>
+  <p>El método que recorre el resto del curso: <b>cuatro etapas</b> que agrupan once pasos. Cada paso deja un artefacto y tiene su prompt, su agente y su skill. No tienes que memorizar los pasos: recuerda las cuatro preguntas.</p>
+  <div class="stages" id="loop-stages"></div>
+  <p class="muted" style="font-size:14px;margin-top:6px">Haz clic en una etapa o en un nodo del loop 3D para ver el detalle.</p>
   <div class="stage tall" id="stage-loop">
     <canvas id="scene-loop"></canvas>
     <div class="hud"><b>Visualización 3D interactiva</b><div style="font-size:14px;margin-top:4px">Haz clic en un nodo o usa las flechas</div></div>
-    <div class="ctrls"><button id="loop-prev">←</button><button id="loop-play" class="on">❚❚</button><button id="loop-next">→</button></div>
+    <div class="ctrls"><button id="loop-prev" aria-label="Paso anterior"><i data-lucide="chevron-left" class="li"></i></button><button id="loop-play" class="on" aria-label="Pausar o reproducir"></button><button id="loop-next" aria-label="Paso siguiente"><i data-lucide="chevron-right" class="li"></i></button></div>
     <div class="panel" id="loop-panel"></div>
   </div>
 
-  <div class="kit"><h3>🤖 Trabaja con IA · construye tu contexto</h3><div class="prompts" data-ids="ficha-contexto,valor-crear-entregar-capturar,anonimizar"></div>
+  <div class="kit"><h3><i data-lucide="sparkles" class="li h"></i>Trabaja con IA · construye tu contexto</h3><div class="prompts" data-ids="ficha-contexto,valor-crear-entregar-capturar,anonimizar"></div>
   <div class="skill-slot" data-skill="di-ficha-contexto"></div>
   <p>Plantilla: <a href="#" data-gh="plantillas/01-ficha-de-contexto.md">Ficha de contexto</a></p></div>
 
@@ -231,8 +245,8 @@
   <div class="stage tall" id="stage-radar">
     <canvas id="scene-radar"></canvas>
     <div class="hud"><b>Visualización 3D</b><div style="font-size:14px;margin-top:4px">Radar de señales: la altura es la relevancia; el haz barre continuamente</div></div>
-    <div class="panel" style="top:64px;bottom:auto;left:auto;right:18px;max-width:330px;font-size:13px"><h4>Cómo leerlo</h4>Eje horizontal: <b>tiempo</b> (hoy → 3 a 5 años). Eje vertical: <b>certeza</b>. El cuadrante <b style="color:var(--mint)">futuro-incierto</b> concentra las señales débiles: el terreno del venture building.</div>
   </div>
+  <div class="callout" style="margin-top:-8px"><b>Cómo leer el radar.</b> Eje horizontal: <b>tiempo</b> (hoy → 3 a 5 años). Eje vertical: <b>certeza</b>. La altura de cada columna es su relevancia. El cuadrante <b>futuro · incierto</b> concentra las señales débiles: el terreno del venture building.</div>
 
   <h3>Las cuatro fuerzas exógenas</h3>
   <div class="tblwrap"><table class="tbl">
@@ -250,14 +264,16 @@
     <li><b>Escaneo con IA (25'):</b> prompt de escaneo por fuerza, con búsqueda web activada. Pidan además señales débiles.</li>
     <li><b>Verifiquen (10'):</b> descarten lo que no tenga evidencia o márquenlo como hipótesis.</li>
     <li><b>Consoliden (20'):</b> 3 a 5 hallazgos por fuerza, con relevancia de 1 a 5.</li>
-    <li><b>Radar (20'):</b> ubiquen las señales en certeza × tiempo y marquen con ⭐ la más crítica y menos observada.</li>
+    <li><b>Radar (20'):</b> ubiquen las señales en certeza × tiempo y marquen con una estrella la más crítica y menos observada.</li>
     <li><b>Rutina:</b> conviertan la vigilancia en un boletín mensual con un agente o una tarea programada.</li>
   </ol>
   <div class="callout"><b>Consejo:</b> “sector asegurador colombiano” produce resultados mucho mejores que “seguros”. Cuanto más específico seas con la geografía y el subsector, más útil será la respuesta.</div>
 
-  <div class="kit"><h3>🤖 Trabaja con IA</h3><div class="prompts" data-ids="escaneo-fuerza,senales-debiles,verificar-consolidar,radar-2x2,boletin-vigilancia,analista-zoom-out"></div>
+  <div class="kit"><h3><i data-lucide="sparkles" class="li h"></i>Trabaja con IA</h3><div class="prompts" data-ids="escaneo-fuerza,senales-debiles,verificar-consolidar,radar-2x2,boletin-vigilancia,analista-zoom-out"></div>
   <div class="skill-slot" data-skill="di-zoom-out"></div>
   <p>Plantillas: <a href="#" data-gh="plantillas/02-mapa-de-fuerzas.md">Mapa de fuerzas</a> · <a href="#" data-gh="plantillas/03-radar-de-senales.md">Radar de señales</a> · <a href="plantillas/canvas-imprimibles.html" target="_blank">Canvas imprimible</a></p></div>
+
+  <div class="rel-cases" data-cases="ccb-moda,valorem,notco,kodak" data-title="Casos que lo muestran"></div>
 
   <div class="complete"><button class="btn primary mark" data-mod="m3">Marcar módulo como completado ✓</button></div>
 </div>
@@ -306,9 +322,11 @@
     <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn blue sm" id="hmw-copy">Copiar con prompt de prueba</button></div>
   </div>
 
-  <div class="kit"><h3>🤖 Trabaja con IA</h3><div class="prompts" data-ids="clasificar-onp,horizontes,desafia-eleccion,scoping-canvas,prueba-hmw,reto-venture,comite-esceptico,definicion-retos"></div>
+  <div class="kit"><h3><i data-lucide="sparkles" class="li h"></i>Trabaja con IA</h3><div class="prompts" data-ids="clasificar-onp,horizontes,desafia-eleccion,scoping-canvas,prueba-hmw,reto-venture,comite-esceptico,definicion-retos"></div>
   <div class="skill-slot" data-skill="di-retos"></div>
   <p>Plantillas: <a href="#" data-gh="plantillas/04-oportunidades-necesidades-problemas.md">Lista O/N/P</a> · <a href="#" data-gh="plantillas/05-scoping-canvas.md">Scoping Canvas</a> · <a href="plantillas/canvas-imprimibles.html" target="_blank">Canvas imprimible</a></p></div>
+
+  <div class="rel-cases" data-cases="ccb-deporte,sura,paruma-nequi,epm" data-title="Casos que lo muestran"></div>
 
   <div class="complete"><button class="btn primary mark" data-mod="m4">Marcar módulo como completado ✓</button></div>
 </div>
@@ -330,7 +348,7 @@
     <span class="tag">Herramienta · Matriz viabilidad × factibilidad</span>
     <h3>Ubica tus ideas</h3>
     <div class="row">
-      <div style="grid-column:span 2"><label>Idea</label><input type="text" id="vf-name" placeholder="Nombre corto de la idea"></div>
+      <div style="grid-column:1/-1"><label>Idea</label><input type="text" id="vf-name" placeholder="Nombre corto de la idea"></div>
       <div><label>Viabilidad</label><div class="range"><input type="range" min="1" max="5" step="0.5" value="3" id="vf-v"><b id="vf-vv">3</b></div></div>
       <div><label>Factibilidad</label><div class="range"><input type="range" min="1" max="5" step="0.5" value="3" id="vf-f"><b id="vf-fv">3</b></div></div>
     </div>
@@ -355,9 +373,11 @@
     <tr><td><b>Supuestos críticos</b></td><td>¿Qué tiene que ser cierto para que funcione? Del más al menos riesgoso.</td></tr>
   </table></div>
 
-  <div class="kit"><h3>🤖 Trabaja con IA</h3><div class="prompts" data-ids="reconectar-reto,ampliar-ideas,viabilidad-factibilidad,agrupar-concepto,ficha-concepto,sparring-creativo,arquitecto-conceptos"></div>
+  <div class="kit"><h3><i data-lucide="sparkles" class="li h"></i>Trabaja con IA</h3><div class="prompts" data-ids="reconectar-reto,ampliar-ideas,viabilidad-factibilidad,agrupar-concepto,ficha-concepto,sparring-creativo,arquitecto-conceptos"></div>
   <div class="skill-slot" data-skill="di-ideacion-concepto"></div>
   <p>Plantillas: <a href="#" data-gh="plantillas/06-matriz-ideas.md">Matriz de ideas</a> · <a href="#" data-gh="plantillas/07-ficha-de-concepto.md">Ficha de concepto</a></p></div>
+
+  <div class="rel-cases" data-cases="marranitos,connect,gamma,alcaguete" data-title="Casos que lo muestran"></div>
 
   <div class="complete"><button class="btn primary mark" data-mod="m5">Marcar módulo como completado ✓</button></div>
 </div>
@@ -375,7 +395,7 @@
     <h3>Encuentra tu supuesto asesino</h3>
     <p class="muted">El supuesto asesino es el más crítico y el menos validado: la esquina superior derecha.</p>
     <div class="row">
-      <div style="grid-column:span 2"><label>Supuesto</label><input type="text" id="sa-name" placeholder="Las pymes pagarían una suscripción mensual"></div>
+      <div style="grid-column:1/-1"><label>Supuesto</label><input type="text" id="sa-name" placeholder="Las pymes pagarían una suscripción mensual"></div>
       <div><label>Criticidad (si falla…)</label><div class="range"><input type="range" min="1" max="5" step="0.5" value="3" id="sa-c"><b id="sa-cv">3</b></div></div>
       <div><label>Incertidumbre (sin evidencia)</label><div class="range"><input type="range" min="1" max="5" step="0.5" value="3" id="sa-u"><b id="sa-uv">3</b></div></div>
     </div>
@@ -416,9 +436,11 @@
   </div>
   <div class="callout y"><b>El criterio de fracaso es tan importante como el de éxito.</b> Sin él no es un experimento: es una actividad.</div>
 
-  <div class="kit"><h3>🤖 Trabaja con IA</h3><div class="prompts" data-ids="supuesto-asesino,elegir-prototipo,construir-prototipo,storyboard,simulacion-ia,experimentos,test-card,revisar-test-card,learning-card,disenador-experimentos"></div>
+  <div class="kit"><h3><i data-lucide="sparkles" class="li h"></i>Trabaja con IA</h3><div class="prompts" data-ids="supuesto-asesino,elegir-prototipo,construir-prototipo,storyboard,simulacion-ia,experimentos,test-card,revisar-test-card,learning-card,disenador-experimentos"></div>
   <div class="skill-slot" data-skill="di-experimentos"></div>
   <p>Plantillas: <a href="#" data-gh="plantillas/08-mapa-de-supuestos.md">Mapa de supuestos</a> · <a href="#" data-gh="plantillas/09-test-card.md">Test Card</a> · <a href="#" data-gh="plantillas/10-learning-card.md">Learning Card</a></p></div>
+
+  <div class="rel-cases" data-cases="teamfoods,paruma-mibancolombia,eter,rappi" data-title="Casos que lo muestran"></div>
 
   <div class="complete"><button class="btn primary mark" data-mod="m6">Marcar módulo como completado ✓</button></div>
 </div>
@@ -466,14 +488,16 @@
   </table></div>
 
   <div class="card teal" style="margin-top:30px;display:flex;gap:20px;align-items:center;flex-wrap:wrap">
-    <div style="font-size:42px">📊</div>
+    <div class="big-ic"><i data-lucide="chart-column" class="li"></i></div>
     <div style="flex:1;min-width:240px"><h4>Tablero de portafolio de innovación (Excel)</h4><p style="margin:0;color:#cdeef3">Hojas de señales, oportunidades, portafolio y experimentos, con un tablero que calcula el balance por horizonte, los supuestos validados y las iniciativas zombi.</p></div>
     <a class="btn yellow" href="herramientas/tablero-portafolio-innovacion.xlsx" download>Descargar .xlsx</a>
   </div>
 
-  <div class="kit"><h3>🤖 Trabaja con IA</h3><div class="prompts" data-ids="nivel-1,nivel-2,nivel-3,nivel-4,hoja-de-ruta,revision-portafolio,pitch-60,plan-30-dias,estratega-horizontes"></div>
+  <div class="kit"><h3><i data-lucide="sparkles" class="li h"></i>Trabaja con IA</h3><div class="prompts" data-ids="nivel-1,nivel-2,nivel-3,nivel-4,hoja-de-ruta,revision-portafolio,pitch-60,plan-30-dias,estratega-horizontes"></div>
   <div class="skill-slot" data-skill="di-hoja-de-ruta"></div>
   <p>Plantillas: <a href="#" data-gh="plantillas/11-hoja-de-ruta.md">Hoja de ruta 3·6·12</a> · <a href="#" data-gh="plantillas/12-pitch-60.md">Pitch de 60 segundos</a></p></div>
+
+  <div class="rel-cases" data-cases="epm,credicorp,itau,alcaguete" data-title="Casos que lo muestran"></div>
 
   <div class="complete"><button class="btn primary mark" data-mod="m7">Marcar módulo como completado ✓</button></div>
 </div>
@@ -488,18 +512,20 @@
   <p class="lead">La IA puso al alcance de todos las herramientas de la innovación. Lo que no se descarga es el criterio para usarlas en tu contexto. En Distilled Innovation <b>destilamos</b>: separamos lo esencial del ruido para que tu organización cree valor con IA de forma sostenible, con método, evidencia y personas que deciden.</p>
 
   <div class="grid g3" style="margin-top:30px">
-    <div class="card"><div class="ic">🧪</div><h4>Destilar, no acumular</h4><small>Menos ideas sueltas, más decisiones con evidencia. Nuestro método convierte señales en pruebas y pruebas en portafolio.</small></div>
-    <div class="card"><div class="ic">🧭</div><h4>Valor antes que herramienta</h4><small>Partimos de cómo creas, entregas y capturas valor; la IA entra donde multiplica ese valor, no donde está de moda.</small></div>
-    <div class="card"><div class="ic">🔁</div><h4>Capacidad que se queda</h4><small>Cada experiencia deja prompts, agentes, skills y plantillas que tu equipo sigue usando después de que nos vamos.</small></div>
+    <div class="card"><div class="ic"><i data-lucide="flask-conical" class="li"></i></div><h4>Destilar, no acumular</h4><small>Menos ideas sueltas, más decisiones con evidencia. Nuestro método convierte señales en pruebas y pruebas en portafolio.</small></div>
+    <div class="card"><div class="ic"><i data-lucide="compass" class="li"></i></div><h4>Valor antes que herramienta</h4><small>Partimos de cómo creas, entregas y capturas valor; la IA entra donde multiplica ese valor, no donde está de moda.</small></div>
+    <div class="card"><div class="ic"><i data-lucide="repeat" class="li"></i></div><h4>Capacidad que se queda</h4><small>Cada experiencia deja prompts, agentes, skills y plantillas que tu equipo sigue usando después de que nos vamos.</small></div>
   </div>
+
+  <div class="proof" id="m8-proof"></div>
 
   <h3 style="margin-top:46px">Rutas según tu punto de partida</h3>
   <div class="grid g3">
     <div class="svc"><span class="lvl">Madurez 1–2 · Despertar</span><h4>Innovar para seguir siendo relevantes</h4><p style="font-size:14px">Taller de 90 minutos: lees tu modelo de valor, identificas oportunidades en los cuatro niveles y sales con una hoja de ruta a 3, 6 y 12 meses.</p><div class="meta">Emprendedores, pymes y equipos directivos · presencial o virtual</div></div>
     <div class="svc"><span class="lvl">Madurez 2–3 · Método</span><h4>IA para la gestión de la innovación</h4><p style="font-size:14px">Taller de 8 horas en dos bloques: del entorno al reto y del reto a la prueba. Cada equipo sale con Scoping Canvas, concepto, prototipo y Test Card.</p><div class="meta">Equipos de innovación, estrategia y negocio</div></div>
     <div class="svc"><span class="lvl">Madurez 3 · Exploración H3</span><h4>Venture Building Estratégico</h4><p style="font-size:14px">Taller de 4 horas: radar de señales débiles, retos de venture sometidos a presión y supuesto asesino con experimento mínimo.</p><div class="meta">Comités, gremios y equipos de nuevos negocios</div></div>
-    <div class="svc"><span class="lvl">Madurez 2–4 · Liderazgo</span><h4>Liderazgo con datos e IA</h4><p style="font-size:14px">Programas y sesiones para líderes que llevan la IA del discurso a decisiones concretas de innovación y gestión.</p><div class="meta">Experiencias con organizaciones como Argos y SUMMA</div></div>
-    <div class="svc"><span class="lvl">Madurez 3–4 · Sistema</span><h4>Diseño de sistemas y centros de innovación</h4><p style="font-size:14px">Modelo operativo, gobierno, portafolio, cadencias y métricas para que la innovación deje de depender de una sola persona.</p><div class="meta">Experiencia en el diseño del centro de innovación de un grupo empresarial (Grupo EPM)</div></div>
+    <div class="svc"><span class="lvl">Madurez 2–4 · Liderazgo</span><h4>Liderazgo con datos e IA</h4><p style="font-size:14px">Programas y sesiones para líderes que llevan la IA del discurso a decisiones concretas de innovación y gestión.</p><div class="meta">Casos: <a href="#caso-argos">Argos</a> · <a href="#caso-summa">SUMMA</a></div></div>
+    <div class="svc"><span class="lvl">Madurez 3–4 · Sistema</span><h4>Diseño de sistemas y centros de innovación</h4><p style="font-size:14px">Modelo operativo, gobierno, portafolio, cadencias y métricas para que la innovación deje de depender de una sola persona.</p><div class="meta">Caso: <a href="#caso-epm">Sistema de innovación de Grupo EPM</a></div></div>
     <div class="svc"><span class="lvl">Madurez 4–5 · Ventaja</span><h4>Agentes y skills a la medida</h4><p style="font-size:14px">Llevamos tu método a agentes, skills y tableros conectados a tus herramientas, con reglas de uso y gobierno de la IA.</p><div class="meta">Plataforma y laboratorio DI Labs</div></div>
   </div>
 
@@ -513,6 +539,30 @@
 </div>
 </section>
 
+<!-- ================= CASOS ================= -->
+<section class="mod tint" id="casos">
+<div class="wrap">
+  <span class="eyebrow">Casos reales</span>
+  <h2>Lo que pasa cuando la innovación se <span class="oval">gestiona</span></h2>
+  <p class="lead">Casos de Distilled Innovation y de empresas de América Latina que están usando la IA para crear valor, con sus resultados, sus errores y lo que enseñan sobre cada etapa del loop.</p>
+  <div class="case-stats" id="case-stats"></div>
+
+  <h3 style="margin-top:34px">Destacados 2026 · Distilled Innovation</h3>
+  <div class="grid g2 case-grid" id="case-featured"></div>
+
+  <h3 style="margin-top:40px">Explora todos los casos</h3>
+  <input class="search" id="case-search" placeholder="Buscar por empresa, tema o resultado… (ej.: CRM, agentes, prototipo)">
+  <div class="filter-row"><span>Origen</span><div class="filters" id="case-f-origen"></div></div>
+  <div class="filter-row"><span>Etapa del loop</span><div class="filters" id="case-f-etapa"></div></div>
+  <p class="muted" id="case-count" style="font-size:13px"></p>
+  <div class="grid g3 case-grid" id="case-list"></div>
+
+  <div class="callout" style="margin-top:34px;font-size:13.5px"><b>Sobre las fuentes.</b> Los casos de Distilled vienen de su registro de casos de éxito y de las actas de cierre de cada proyecto. Los casos de América Latina usan información pública: cada uno enlaza sus fuentes, y la mayoría de las cifras las reporta la propia empresa (no son auditorías independientes). Revisado en noviembre de 2026.</div>
+</div>
+</section>
+
+<dialog class="case-dlg" id="case-dlg" aria-labelledby="case-dlg-title"><div class="case-dlg-body" id="case-dlg-body"></div></dialog>
+
 <!-- ================= KIT ================= -->
 <section class="mod" id="kit">
 <div class="wrap">
@@ -520,16 +570,16 @@
   <h2>Todo el kit en un solo lugar</h2>
   <p class="lead">Busca cualquier prompt o agente, instala las skills desde GitHub y descarga las plantillas.</p>
 
-  <h3 style="margin-top:30px">🧩 Skills de Claude</h3>
+  <h3 style="margin-top:30px"><i data-lucide="puzzle" class="li h"></i>Skills de Claude</h3>
   <div class="callout"><b>Instalación:</b> descarga el repositorio, ejecuta <code>scripts/empaquetar-skills.sh</code> para generar los .zip y súbelos en Claude → Configuración → Capacidades → Skills. En Claude Code, instala el repositorio como plugin o copia la carpeta de la skill en <code>~/.claude/skills/</code>. En GPTs o Gems, pega el contenido del <code>SKILL.md</code> (sin el encabezado entre <code>---</code>) en Instrucciones.</div>
   <div id="skills-all"></div>
 
-  <h3 style="margin-top:40px">💬 Sistema de prompts</h3>
+  <h3 style="margin-top:40px"><i data-lucide="message-square" class="li h"></i>Sistema de prompts</h3>
   <input class="search" id="kit-search" placeholder="Buscar prompts y agentes… (ej.: supuesto, radar, horizontes)">
   <div class="filters" id="kit-filters"></div>
   <div id="kit-list"></div>
 
-  <h3 style="margin-top:40px">📄 Plantillas y herramientas</h3>
+  <h3 style="margin-top:40px"><i data-lucide="file-text" class="li h"></i>Plantillas y herramientas</h3>
   <div class="grid g3 files" id="kit-files"></div>
 </div>
 </section>
@@ -542,7 +592,7 @@
 </footer>
 </main>
 
-<button class="ficha-fab" id="ficha-fab">📋 Mi ficha de contexto</button>
+
 <div class="drawer" id="drawer">
   <header><b>Mi ficha de contexto</b><button id="drawer-x" aria-label="Cerrar">×</button></header>
   <div class="in">
@@ -555,6 +605,8 @@
 <div class="toast" id="toast"></div>
 
 <script src="assets/prompts.js"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/casos.js"></script>
 <script src="assets/app.js"></script>
 <script type="module" src="assets/scenes.js"></script>
 </body>

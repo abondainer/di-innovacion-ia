@@ -5,33 +5,42 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const P = window.DI_PROMPTS || {};
+  const I = (n, c = '') => `<i data-lucide="${n}" class="li${c ? ' ' + c : ''}"></i>`;
+  const icons = () => window.lucide && window.lucide.createIcons();
+  window.DI_ICONS = icons;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const store = { get: (k, d) => { try { return JSON.parse(localStorage.getItem('di.' + k)) ?? d; } catch { return d; } }, set: (k, v) => localStorage.setItem('di.' + k, JSON.stringify(v)) };
 
   /* ---------- Loop data (shared with scenes.js) ---------- */
+  window.DI_STAGES = [
+    { k: 'explorar', n: 1, t: 'Explorar', q: '¿Qué está cambiando a nuestro alrededor?', c: '#00FFCC', hex: 0x00FFCC, m: 'm3', out: 'Señales verificadas en un radar' },
+    { k: 'enfocar', n: 2, t: 'Enfocar', q: '¿Qué reto vale la pena resolver?', c: '#469DE6', hex: 0x469DE6, m: 'm4', out: 'Un reto encuadrado' },
+    { k: 'crear', n: 3, t: 'Crear', q: '¿Qué respuesta podemos diseñar?', c: '#FECB28', hex: 0xFECB28, m: 'm5', out: 'Un concepto con supuestos' },
+    { k: 'validar', n: 4, t: 'Validar y decidir', q: '¿Qué aprendimos y qué hacemos ahora?', c: '#BCF8FF', hex: 0xBCF8FF, m: 'm6', out: 'Evidencia y una decisión' }
+  ];
   window.DI_LOOP = [
-    { n: '0', t: 'Contexto', d: 'Ficha de contexto y lectura de cómo creas, entregas y capturas valor.', a: 'Ficha de contexto', m: 'm2', s: 'di-ficha-contexto' },
-    { n: '1', t: 'Zoom Out', d: 'Mapa de las cuatro fuerzas exógenas con hallazgos verificados.', a: 'Mapa de fuerzas', m: 'm3', s: 'di-zoom-out' },
-    { n: '2', t: 'Radar', d: 'Señales ubicadas por certeza × tiempo; la más crítica y menos observada.', a: 'Radar de señales', m: 'm3', s: 'di-zoom-out' },
-    { n: '3', t: 'Clasificar', d: 'Hallazgos traducidos en oportunidades, necesidades y problemas.', a: 'Lista O/N/P', m: 'm4', s: 'di-retos' },
-    { n: '4', t: 'Priorizar', d: 'Portafolio en H1 · H2 · H3 y una oportunidad elegida.', a: 'Portafolio por horizontes', m: 'm4', s: 'di-retos' },
-    { n: '5', t: 'Encuadrar', d: 'Reto definido con el Scoping Canvas y su "¿Cómo podríamos…?".', a: 'Scoping Canvas', m: 'm4', s: 'di-retos' },
-    { n: '6', t: 'Idear', d: 'Ideas del equipo ampliadas con IA y ubicadas en viabilidad × factibilidad.', a: 'Matriz de ideas', m: 'm5', s: 'di-ideacion-concepto' },
-    { n: '7', t: 'Concepto', d: 'Ideas ganadoras combinadas en un concepto fuerte con supuestos críticos.', a: 'Ficha de concepto', m: 'm5', s: 'di-ideacion-concepto' },
-    { n: '8', t: 'Prototipar', d: 'Supuesto asesino y el prototipo más simple, construido con IA.', a: 'Prototipo', m: 'm6', s: 'di-experimentos' },
-    { n: '9', t: 'Probar', d: 'Test Card antes de probar y Learning Card después.', a: 'Test y Learning Card', m: 'm6', s: 'di-experimentos' },
-    { n: '10', t: 'Decidir', d: 'Hoja de ruta 3 · 6 · 12 meses y revisión mensual del portafolio.', a: 'Hoja de ruta', m: 'm7', s: 'di-hoja-de-ruta' }
+    { n: '0', e: 'explorar', t: 'Contexto', d: 'Ficha de contexto y lectura de cómo creas, entregas y capturas valor.', a: 'Ficha de contexto', m: 'm2', s: 'di-ficha-contexto' },
+    { n: '1', e: 'explorar', t: 'Zoom Out', d: 'Mapa de las cuatro fuerzas exógenas con hallazgos verificados.', a: 'Mapa de fuerzas', m: 'm3', s: 'di-zoom-out' },
+    { n: '2', e: 'explorar', t: 'Radar', d: 'Señales ubicadas por certeza × tiempo; la más crítica y menos observada.', a: 'Radar de señales', m: 'm3', s: 'di-zoom-out' },
+    { n: '3', e: 'enfocar', t: 'Clasificar', d: 'Hallazgos traducidos en oportunidades, necesidades y problemas.', a: 'Lista O/N/P', m: 'm4', s: 'di-retos' },
+    { n: '4', e: 'enfocar', t: 'Priorizar', d: 'Portafolio en H1 · H2 · H3 y una oportunidad elegida.', a: 'Portafolio por horizontes', m: 'm4', s: 'di-retos' },
+    { n: '5', e: 'enfocar', t: 'Encuadrar', d: 'Reto definido con el Scoping Canvas y su "¿Cómo podríamos…?".', a: 'Scoping Canvas', m: 'm4', s: 'di-retos' },
+    { n: '6', e: 'crear', t: 'Idear', d: 'Ideas del equipo ampliadas con IA y ubicadas en viabilidad × factibilidad.', a: 'Matriz de ideas', m: 'm5', s: 'di-ideacion-concepto' },
+    { n: '7', e: 'crear', t: 'Concepto', d: 'Ideas ganadoras combinadas en un concepto fuerte con supuestos críticos.', a: 'Ficha de concepto', m: 'm5', s: 'di-ideacion-concepto' },
+    { n: '8', e: 'validar', t: 'Prototipar', d: 'Supuesto asesino y el prototipo más simple, construido con IA.', a: 'Prototipo', m: 'm6', s: 'di-experimentos' },
+    { n: '9', e: 'validar', t: 'Probar', d: 'Test Card antes de probar y Learning Card después.', a: 'Test y Learning Card', m: 'm6', s: 'di-experimentos' },
+    { n: '10', e: 'validar', t: 'Decidir', d: 'Hoja de ruta 3 · 6 · 12 meses y revisión mensual del portafolio.', a: 'Hoja de ruta', m: 'm7', s: 'di-hoja-de-ruta' }
   ];
 
   const SKILLS = {
-    'di-innovation-loop': ['🔁', 'Orquesta el Distilled AI Innovation Loop completo: diagnostica en qué paso está el equipo, ejecuta el método y define el siguiente artefacto.'],
-    'di-ficha-contexto': ['📋', 'Entrevista corta que produce la ficha de contexto y la lectura crear · entregar · capturar valor.'],
-    'di-exposicion-ia': ['🌊', 'Evalúa cómo la IA transforma tu modelo de negocio, mapea tareas humano–IA y ubica tu nivel de madurez.'],
-    'di-zoom-out': ['🛰️', 'Vigilancia estratégica: cuatro fuerzas exógenas, señales débiles, verificación, radar certeza × tiempo y boletín mensual.'],
-    'di-retos': ['🎯', 'Clasifica en oportunidades, necesidades y problemas, prioriza por horizontes y encuadra con el Scoping Canvas.'],
-    'di-ideacion-concepto': ['💡', 'Ideación estructurada, matriz viabilidad × factibilidad y ficha de concepto de 9 campos.'],
-    'di-experimentos': ['🧪', 'Supuesto asesino, prototipo más simple con IA, tres experimentos, Test Card y Learning Card.'],
-    'di-hoja-de-ruta': ['🗺️', 'Cuatro niveles × tres horizontes, máximo tres iniciativas activas, hoja de ruta 3·6·12 y revisión mensual.']
+    'di-innovation-loop': ['repeat', 'Orquesta el Distilled AI Innovation Loop completo: diagnostica en qué paso está el equipo, ejecuta el método y define el siguiente artefacto.'],
+    'di-ficha-contexto': ['clipboard-list', 'Entrevista corta que produce la ficha de contexto y la lectura crear · entregar · capturar valor.'],
+    'di-exposicion-ia': ['waves', 'Evalúa cómo la IA transforma tu modelo de negocio, mapea tareas humano–IA y ubica tu nivel de madurez.'],
+    'di-zoom-out': ['satellite', 'Vigilancia estratégica: cuatro fuerzas exógenas, señales débiles, verificación, radar certeza × tiempo y boletín mensual.'],
+    'di-retos': ['target', 'Clasifica en oportunidades, necesidades y problemas, prioriza por horizontes y encuadra con el Scoping Canvas.'],
+    'di-ideacion-concepto': ['lightbulb', 'Ideación estructurada, matriz viabilidad × factibilidad y ficha de concepto de 9 campos.'],
+    'di-experimentos': ['flask-conical', 'Supuesto asesino, prototipo más simple con IA, tres experimentos, Test Card y Learning Card.'],
+    'di-hoja-de-ruta': ['map', 'Cuatro niveles × tres horizontes, máximo tres iniciativas activas, hoja de ruta 3·6·12 y revisión mensual.']
   };
 
   /* ---------- Toast ---------- */
@@ -62,22 +71,27 @@ Capturar:`;
     if (!f) return txt;
     return txt.replace(/\[PEGA AQUÍ TU FICHA DE CONTEXTO\]|\[PEGA LA FICHA DE CONTEXTO\]/g, f);
   };
+  const sb = $('.sidebar'), mb = $('#menu-btn');
+  const closeMenu = () => { sb.classList.remove('open'); document.body.classList.remove('menu-open'); mb.setAttribute('aria-expanded', 'false'); };
+  mb.onclick = () => { const o = !sb.classList.contains('open'); sb.classList.toggle('open', o); document.body.classList.toggle('menu-open', o); mb.setAttribute('aria-expanded', String(o)); };
+  $('#scrim').onclick = closeMenu;
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   const drawer = $('#drawer');
-  $('#ficha-fab').onclick = () => { $('#ficha-txt').value = ficha(); drawer.classList.add('open'); };
+  $$('.ficha-open').forEach(b => b.onclick = () => { $('#ficha-txt').value = ficha(); drawer.classList.add('open'); closeMenu(); });
   $('#drawer-x').onclick = () => drawer.classList.remove('open');
   $('#ficha-save').onclick = () => { store.set('ficha', $('#ficha-txt').value); toast('Ficha guardada en este navegador'); updateFab(); };
   $('#ficha-tpl').onclick = () => { if (!$('#ficha-txt').value.trim()) $('#ficha-txt').value = FICHA_TPL; };
   $('#ficha-del').onclick = () => { store.set('ficha', ''); $('#ficha-txt').value = ''; toast('Ficha borrada'); updateFab(); };
-  const updateFab = () => { $('#ficha-fab').textContent = ficha().trim() ? '✅ Ficha de contexto activa' : '📋 Mi ficha de contexto'; };
+  const updateFab = () => { const on = !!ficha().trim(); $('#ficha-side').classList.toggle('on', on); $('.tb-ficha').classList.toggle('on', on); $('#ficha-side span').textContent = on ? 'Ficha de contexto activa' : 'Mi ficha de contexto'; };
   updateFab();
 
   /* ---------- Prompt cards ---------- */
   function promptCard(id, openFirst) {
     const p = P[id]; if (!p) return '';
-    const kind = p.tipo === 'agente' ? '🧠 Agente' : '💬 Prompt';
+    const kind = p.tipo === 'agente' ? `${I('bot')} Agente` : `${I('message-square')} Prompt`;
     const needsFicha = /FICHA DE CONTEXTO\]/.test(p.texto);
     return `<details class="prompt ${p.tipo}" data-id="${id}" ${openFirst ? 'open' : ''}>
-      <summary><span class="chev">▶</span><span class="t">${esc(p.titulo)}</span><span class="k">${kind}</span></summary>
+      <summary><span class="chev">${I('chevron-right')}</span><span class="t">${esc(p.titulo)}</span><span class="k">${kind}</span></summary>
       <div class="body">${p.nota ? `<div class="note">${esc(p.nota)}${needsFicha ? ' · <b>Inserta tu ficha automáticamente.</b>' : ''}</div>` : ''}
       <pre>${esc(p.texto)}</pre>
       <div class="acts"><button class="btn blue sm" data-copy="${id}">Copiar ${p.tipo === 'agente' ? 'system prompt' : 'prompt'}</button>
@@ -94,7 +108,7 @@ Capturar:`;
   });
 
   /* ---------- Skills ---------- */
-  const skillCard = n => { const [ic, d] = SKILLS[n]; return `<div class="skill"><div class="ic">${ic}</div><div><div class="pill m" style="margin-bottom:6px">🧩 Skill de Claude</div><h4>${n}</h4><p>${d}</p>
+  const skillCard = n => { const [ic, d] = SKILLS[n]; return `<div class="skill"><div class="ic">${I(ic)}</div><div><div class="pill m" style="margin-bottom:6px">${I('puzzle')} Skill de Claude</div><h4>${n}</h4><p>${d}</p>
     <div class="acts"><a class="btn yellow sm" href="${ghUrl('skills/' + n + '/SKILL.md')}" target="_blank" rel="noopener">Ver SKILL.md en GitHub</a><a class="btn ghost sm" href="${GH}/tree/main/skills/${n}" target="_blank" rel="noopener">Carpeta</a></div></div></div>`; };
   $$('.skill-slot').forEach(el => el.innerHTML = skillCard(el.dataset.skill));
   $('#skills-all').innerHTML = `<div class="grid g2">${Object.keys(SKILLS).map(skillCard).join('')}</div>`;
@@ -117,14 +131,14 @@ Capturar:`;
   renderKit();
   $('#nprompts').textContent = Object.keys(P).length;
   const FILES = [
-    ['📊', 'Tablero de portafolio (Excel)', 'herramientas/tablero-portafolio-innovacion.xlsx', 'Señales, oportunidades, portafolio, experimentos y tablero', true],
-    ['🖨️', 'Canvas imprimibles (PDF)', 'plantillas/canvas-imprimibles.html', 'Scoping Canvas, radar, matrices, ficha, Test/Learning Card, hoja de ruta', true],
-    ['📋', 'Ficha de contexto', 'plantillas/01-ficha-de-contexto.md'], ['🛰️', 'Mapa de fuerzas', 'plantillas/02-mapa-de-fuerzas.md'], ['📡', 'Radar de señales', 'plantillas/03-radar-de-senales.md'],
-    ['🔤', 'Oportunidades, necesidades y problemas', 'plantillas/04-oportunidades-necesidades-problemas.md'], ['🎯', 'Scoping Canvas', 'plantillas/05-scoping-canvas.md'], ['💡', 'Matriz de ideas', 'plantillas/06-matriz-ideas.md'],
-    ['🧱', 'Ficha de concepto', 'plantillas/07-ficha-de-concepto.md'], ['☠️', 'Mapa de supuestos', 'plantillas/08-mapa-de-supuestos.md'], ['🧪', 'Test Card', 'plantillas/09-test-card.md'],
-    ['📘', 'Learning Card', 'plantillas/10-learning-card.md'], ['🗺️', 'Hoja de ruta 3·6·12', 'plantillas/11-hoja-de-ruta.md'], ['🎤', 'Pitch de 60 segundos', 'plantillas/12-pitch-60.md']
+    ['file-spreadsheet', 'Tablero de portafolio (Excel)', 'herramientas/tablero-portafolio-innovacion.xlsx', 'Señales, oportunidades, portafolio, experimentos y tablero', true],
+    ['printer', 'Canvas imprimibles (PDF)', 'plantillas/canvas-imprimibles.html', 'Scoping Canvas, radar, matrices, ficha, Test/Learning Card, hoja de ruta', true],
+    ['clipboard-list', 'Ficha de contexto', 'plantillas/01-ficha-de-contexto.md'], ['satellite', 'Mapa de fuerzas', 'plantillas/02-mapa-de-fuerzas.md'], ['radar', 'Radar de señales', 'plantillas/03-radar-de-senales.md'],
+    ['list-checks', 'Oportunidades, necesidades y problemas', 'plantillas/04-oportunidades-necesidades-problemas.md'], ['target', 'Scoping Canvas', 'plantillas/05-scoping-canvas.md'], ['lightbulb', 'Matriz de ideas', 'plantillas/06-matriz-ideas.md'],
+    ['blocks', 'Ficha de concepto', 'plantillas/07-ficha-de-concepto.md'], ['crosshair', 'Mapa de supuestos', 'plantillas/08-mapa-de-supuestos.md'], ['flask-conical', 'Test Card', 'plantillas/09-test-card.md'],
+    ['book-open', 'Learning Card', 'plantillas/10-learning-card.md'], ['map', 'Hoja de ruta 3·6·12', 'plantillas/11-hoja-de-ruta.md'], ['mic', 'Pitch de 60 segundos', 'plantillas/12-pitch-60.md']
   ];
-  $('#kit-files').innerHTML = FILES.map(([ic, t, p, d, local]) => `<a href="${local ? p : ghUrl(p)}" target="_blank" rel="noopener" ${p.endsWith('.xlsx') ? 'download' : ''}><span style="font-size:24px">${ic}</span><span>${t}<small>${d || 'Plantilla en Markdown · GitHub'}</small></span></a>`).join('');
+  $('#kit-files').innerHTML = FILES.map(([ic, t, p, d, local]) => `<a href="${local ? p : ghUrl(p)}" target="_blank" rel="noopener" ${p.endsWith('.xlsx') ? 'download' : ''}><span class="file-ic">${I(ic)}</span><span>${t}<small>${d || 'Plantilla en Markdown · GitHub'}</small></span></a>`).join('');
 
   /* ---------- Progress & nav ---------- */
   const done = new Set(store.get('done', []));
@@ -137,14 +151,111 @@ Capturar:`;
   };
   $$('.mark').forEach(b => b.onclick = () => { done.has(b.dataset.mod) ? done.delete(b.dataset.mod) : done.add(b.dataset.mod); store.set('done', [...done]); paint(); if (done.has(b.dataset.mod)) toast('¡Bien! Módulo completado'); });
   paint();
-  const secs = $$('main > section, main > header');
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { $$('#nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id)); } }), { rootMargin: '-45% 0px -50% 0px' });
-  secs.forEach(s => io.observe(s));
-  $$('#nav a').forEach(a => a.addEventListener('click', () => $('.sidebar').classList.remove('open')));
+  /* ---------- Loop: 4 etapas ---------- */
+  const STG = window.DI_STAGES, LOOP = window.DI_LOOP;
+  const stg = k => STG.find(x => x.k === k);
+  $('#loop-stages').innerHTML = STG.map(e => `<button class="stg" data-e="${e.k}" style="--c:${e.c}">
+    <span class="stg-n">Etapa ${e.n}</span><b>${e.t}</b><span class="stg-q">${e.q}</span>
+    <ol>${LOOP.filter(s => s.e === e.k).map(s => `<li><i>${s.n}</i>${s.t}</li>`).join('')}</ol>
+    <span class="stg-out">Sale con: ${e.out}</span></button>`).join('');
+  $$('#loop-stages .stg').forEach(b => b.onclick = () => { const i = LOOP.findIndex(s => s.e === b.dataset.e); window.DI_LOOP_SHOW && window.DI_LOOP_SHOW(i); $('#stage-loop').scrollIntoView({ behavior: 'smooth', block: 'center' }); });
+  window.DI_LOOP_ACTIVE = i => $$('#loop-stages .stg').forEach(b => b.classList.toggle('on', b.dataset.e === LOOP[i].e));
+
+  /* ---------- Casos ---------- */
+  const CASES = window.DI_CASES || [];
+  const ETAPA_MAP = { vigilar: 'explorar', encuadrar: 'enfocar', idear: 'crear', probar: 'validar', escalar: 'validar' };
+  const caseStages = c => [...new Set(c.etapas.map(x => ETAPA_MAP[x]).filter(Boolean))];
+  const ORIG = { distilled: 'Distilled Innovation', latam: 'América Latina · reciente', clasico: 'Clásico global' };
+  const caseCard = (c, big) => `<a class="case-card ${c.origen}${big ? ' big' : ''}" href="#caso-${c.id}">
+    <span class="case-orig">${c.origen === 'distilled' ? '<img src="assets/brand/monogram-navy.png" alt="">' : ''}${ORIG[c.origen]}</span>
+    <b class="case-org">${esc(c.org)}</b><span class="case-meta">${esc(c.pais)} · ${esc(c.anio)}${c.ia ? ' · <em>con IA</em>' : ''}</span>
+    <span class="case-t">${esc(c.titulo)}</span>
+    <span class="case-m">${esc(c.metrica)}</span>
+    <span class="case-st">${caseStages(c).map(k => `<i style="--c:${stg(k).c}">${stg(k).t}</i>`).join('')}</span>
+    <span class="case-go">Ver el caso →</span></a>`;
+  const nD = CASES.filter(c => c.origen === 'distilled').length, nL = CASES.filter(c => c.origen === 'latam').length;
+  if ($('#ncasos')) $('#ncasos').textContent = CASES.length;
+  $('#case-stats').innerHTML = `<div><b>${nD}</b><span>casos de Distilled Innovation · 2015–2026</span></div><div><b>${nL}</b><span>casos recientes de América Latina con fuentes</span></div><div><b>${CASES.filter(c => c.ia).length}</b><span>casos con IA</span></div>`;
+  $('#case-featured').innerHTML = ['summa', 'argos', 'stelar', 'epm'].map(id => CASES.find(c => c.id === id)).filter(Boolean).map(c => caseCard(c, true)).join('');
+  const cf = { origen: 'todos', etapa: 'todas', q: '' };
+  const fBtns = (el, key, opts) => { el.innerHTML = opts.map(([v, l]) => `<button data-v="${v}" class="${cf[key] === v ? 'on' : ''}">${l}</button>`).join(''); $$('button', el).forEach(b => b.onclick = () => { cf[key] = b.dataset.v; fBtns(el, key, opts); drawCases(); }); };
+  const drawCases = () => {
+    const q = cf.q.toLowerCase();
+    const list = CASES.filter(c => (cf.origen === 'todos' || (cf.origen === 'ia' ? c.ia : c.origen === cf.origen)) && (cf.etapa === 'todas' || caseStages(c).includes(cf.etapa)) && (!q || JSON.stringify(c).toLowerCase().includes(q)));
+    $('#case-list').innerHTML = list.map(c => caseCard(c)).join('') || '<p class="muted">No hay casos con esos filtros.</p>';
+    $('#case-count').textContent = `${list.length} de ${CASES.length} casos`;
+  };
+  fBtns($('#case-f-origen'), 'origen', [['todos', 'Todos'], ['distilled', 'Distilled'], ['latam', 'América Latina'], ['ia', 'Con IA'], ['clasico', 'Clásicos']]);
+  fBtns($('#case-f-etapa'), 'etapa', [['todas', 'Todas'], ...STG.map(e => [e.k, e.t])]);
+  $('#case-search').oninput = e => { cf.q = e.target.value; drawCases(); };
+  drawCases();
+  $$('.rel-cases').forEach(el => { const cs = el.dataset.cases.split(',').map(id => CASES.find(c => c.id === id)).filter(Boolean); el.innerHTML = `<h3>${I('pin', 'h')}${el.dataset.title || 'Casos que lo muestran'}</h3><div class="grid g4 case-grid">${cs.map(c => caseCard(c)).join('')}</div><a class="more" href="#casos">Ver todos los casos →</a>`; });
+  if ($('#m8-proof')) $('#m8-proof').innerHTML = `<h3 style="margin-top:44px">Experiencia que respalda el método</h3><div class="grid g4 case-grid">${['summa', 'argos', 'epm', 'stelar'].map(id => caseCard(CASES.find(c => c.id === id))).join('')}</div><a class="more" href="#casos" style="color:var(--yellow)">Ver los ${nD} casos de Distilled →</a>`;
+  const dlg = $('#case-dlg');
+  const openCase = id => {
+    const c = CASES.find(x => x.id === id); if (!c) return false;
+    $('#case-dlg-body').innerHTML = `<button class="dlg-x" aria-label="Cerrar">×</button>
+      <span class="case-orig">${ORIG[c.origen]}</span>
+      <h2 id="case-dlg-title">${esc(c.org)}</h2><p class="case-meta">${esc(c.pais)} · ${esc(c.anio)}${c.ia ? ' · con IA' : ''}</p>
+      <h3 class="dlg-t">${esc(c.titulo)}</h3>
+      <div class="dlg-metric">${esc(c.metrica)}</div>
+      <div class="dlg-cols"><div><h4>El desafío</h4><p>${esc(c.desafio)}</p><h4>Qué se hizo</h4><ul>${c.intervencion.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
+      <div><h4>Resultados</h4><ul class="res">${c.resultados.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      <div class="dlg-lesson"><b>Lección para el loop</b>${esc(c.leccion)}<div class="case-st">${caseStages(c).map(k => `<a href="#${stg(k).m}" style="--c:${stg(k).c}">Etapa ${stg(k).n} · ${stg(k).t} →</a>`).join('')}</div></div></div></div>
+      ${c.fuentes ? `<h4>Fuentes</h4><ul class="src">${c.fuentes.map(([t, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${esc(t)} ↗</a></li>`).join('')}</ul>` : `<p class="muted" style="font-size:13px">Fuente: registro de casos de éxito y actas de cierre de Distilled Innovation.</p>`}`;
+    $('.dlg-x', dlg).onclick = () => dlg.close();
+    if (!dlg.open) dlg.showModal(); dlg.scrollTop = 0; return true;
+  };
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('close', () => { if (location.hash.startsWith('#caso-')) history.replaceState(null, '', '#' + (lastPage || 'casos')); });
+
+  /* ---------- Navegación por secciones ---------- */
+  const pages = $$('main > section, main > header');
+  const order = $$('#nav a').map(a => a.getAttribute('href').slice(1)).filter(id => document.getElementById(id));
+  const label = id => { const a = $(`#nav a[href="#${id}"]`); return a ? a.lastChild.textContent.trim() : id; };
+  const shortLabel = label;
+  pages.forEach(pg => {
+    const i = order.indexOf(pg.id); if (i < 0) return;
+    const prev = order[i - 1], next = order[i + 1];
+    const nav = document.createElement('nav'); nav.className = 'pager'; nav.setAttribute('aria-label', 'Navegación entre secciones');
+    nav.innerHTML = `${prev ? `<a class="pv" href="#${prev}"><small>← Anterior</small><b>${shortLabel(prev)}</b></a>` : '<span></span>'}<span class="pg-n">${i + 1} / ${order.length}</span>${next ? `<a class="nx" href="#${next}"><small>Siguiente →</small><b>${shortLabel(next)}</b></a>` : '<span></span>'}`;
+    if (pg.id === 'inicio') return;
+    (pg.querySelector('.wrap') || pg).appendChild(nav);
+  });
+  let lastPage = 'inicio';
+  const route = () => {
+    let id = decodeURIComponent(location.hash.slice(1)) || 'inicio';
+    if (id.startsWith('caso-')) { const cid = id.slice(5); if (CASES.some(c => c.id === cid)) { if (!document.body.classList.contains('paged')) showPage('casos'); openCase(cid); return; } id = 'casos'; }
+    const el = document.getElementById(id) || document.getElementById('inicio');
+    const pg = el.closest('main > section, main > header') || pages[0];
+    if (dlg.open) dlg.close();
+    showPage(pg.id);
+    if (el !== pg) setTimeout(() => el.scrollIntoView({ block: 'start' }), 30);
+  };
+  const showPage = id => {
+    const changed = lastPage !== id || !document.body.classList.contains('paged');
+    document.body.classList.add('paged');
+    pages.forEach(p => { p.hidden = p.id !== id; });
+    lastPage = id;
+    $$('#nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    $$(`#${id} .reveal`).forEach(r => r.classList.add('in'));
+    document.title = (id === 'inicio' ? '' : label(id) + ' · ') + 'Gestión de la innovación con IA · Distilled Innovation';
+    $('#tb-title').textContent = id === 'inicio' ? 'Gestión de la innovación con IA' : label(id);
+    if (changed) { scrollTo({ top: 0, behavior: 'instant' }); dispatchEvent(new Event('resize')); }
+  };
+  addEventListener('hashchange', route);
+  $$('#nav a').forEach(a => a.addEventListener('click', closeMenu));
+  addEventListener('keydown', e => {
+    if (e.target.closest('input, textarea, select, [contenteditable], dialog') || e.metaKey || e.ctrlKey || e.altKey) return;
+    const i = order.indexOf(lastPage);
+    if (e.key === 'ArrowRight' && order[i + 1]) location.hash = order[i + 1];
+    if (e.key === 'ArrowLeft' && order[i - 1]) location.hash = order[i - 1];
+  });
   const rv = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } }), { threshold: .12 });
   $$('.card, .svc').forEach(el => { el.classList.add('reveal'); rv.observe(el); });
-  const sweep = () => $$('.reveal:not(.in)').forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight * 1.05 && r.bottom > -50) el.classList.add('in'); });
-  addEventListener('scroll', sweep, { passive: true }); setTimeout(sweep, 300); setTimeout(sweep, 1500);
+  route();
+  icons();
+  let iconT; new MutationObserver(() => { clearTimeout(iconT); iconT = setTimeout(() => { if (document.querySelector('i[data-lucide]')) icons(); }, 0); }).observe(document.body, { childList: true, subtree: true });
 
   /* ---------- Diagnóstico ---------- */
   const DQ = [
@@ -199,7 +310,7 @@ Capturar:`;
       [!/\b(app|aplicaci[oó]n|plataforma|chatbot|software|web)\b/.test(all), 'No menciona una solución (app, plataforma, chatbot…)'],
       [!/^innovar$/.test(v.toLowerCase()) && v.length > 2, 'El verbo es concreto (no “innovar”)']
     ];
-    $('#hmw-checks').innerHTML = checks.map(([ok, t]) => `<div>${ok ? '✅' : '⚠️'} ${t}</div>`).join('');
+    $('#hmw-checks').innerHTML = checks.map(([ok, t]) => `<div class="chk ${ok ? 'ok' : 'warn'}">${I(ok ? 'circle-check' : 'triangle-alert')}<span>${t}</span></div>`).join('');
     return txt;
   };
   $$('#hmw input').forEach(i => i.oninput = hmw); hmw();
@@ -215,7 +326,7 @@ Capturar:`;
         d.style.left = ((it.x - 1) / 4 * 86 + 7) + '%'; d.style.top = (100 - ((it.y - 1) / 4 * 82 + 9)) + '%';
         d.textContent = it.n; d.title = `${it.n} (${it.x}, ${it.y})`; $(cfg.m).appendChild(d);
       });
-      if (cfg.list) $(cfg.list).innerHTML = items.map((it, i) => `<li><span><b>${esc(it.n)}</b> · ${cfg.lx} ${it.y} · ${cfg.ly} ${it.x} · ${cfg.q(it)}</span><button data-i="${i}" title="Quitar">✕</button></li>`).join('');
+      if (cfg.list) $(cfg.list).innerHTML = items.map((it, i) => `<li><span><b>${esc(it.n)}</b> · ${cfg.lx} ${it.y} · ${cfg.ly} ${it.x} · ${cfg.q(it)}</span><button data-i="${i}" title="Quitar" aria-label="Quitar">${I('x')}</button></li>`).join('');
       if (cfg.after) cfg.after(items);
       store.set(cfg.key, items);
     };
@@ -235,7 +346,7 @@ Capturar:`;
     after: items => {
       if (!items.length) { $('#sa-out').textContent = 'Agrega supuestos para encontrar el asesino.'; return; }
       const k = [...items].sort((a, b) => (b.x * b.y) - (a.x * a.y))[0];
-      $('#sa-out').textContent = `☠️ Supuesto asesino: “${k.n}”\nCriticidad ${k.y} · Incertidumbre ${k.x}\n\nSiguiente paso: diseña 3 experimentos (prompt “Diseña 3 experimentos”) empezando por uno ejecutable esta semana, sin presupuesto.`;
+      $('#sa-out').textContent = `Supuesto asesino: “${k.n}”\nCriticidad ${k.y} · Incertidumbre ${k.x}\n\nSiguiente paso: diseña 3 experimentos (prompt “Diseña 3 experimentos”) empezando por uno ejecutable esta semana, sin presupuesto.`;
     } });
 
   /* ---------- Test card ---------- */
@@ -245,7 +356,7 @@ Capturar:`;
     $('#tc-out').textContent = t;
     const checks = [[/\d/.test(g(4)), 'El umbral tiene un número'], [!!g(5), 'Tiene plazo'], [!!g(6), 'Tiene criterio de fracaso'],
       [!/(opini|gust|encuesta de satisf)/i.test(g(3)), 'Mide comportamiento, no solo opinión'], [!/\by\b.*\by\b/.test(g(1)) || g(1).length < 140, 'Prueba un solo supuesto']];
-    $('#tc-checks').innerHTML = checks.map(([ok, x]) => `<div>${ok ? '✅' : '⚠️'} ${x}</div>`).join('');
+    $('#tc-checks').innerHTML = checks.map(([ok, x]) => `<div class="chk ${ok ? 'ok' : 'warn'}">${I(ok ? 'circle-check' : 'triangle-alert')}<span>${x}</span></div>`).join('');
     return t;
   };
   $$('#tc input, #tc textarea').forEach(i => i.oninput = tc); tc();

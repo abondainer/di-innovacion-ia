@@ -1,34 +1,36 @@
 ---
 name: di-innovation-loop
-description: Orquesta el Distilled AI Innovation Loop completo (contexto → Zoom Out → señales → retos → ideación → concepto → prototipo → experimento → portafolio). Úsala cuando alguien quiera gestionar innovación con IA de punta a punta, no sepa por dónde empezar, pida "acompáñame en un proceso de innovación", "taller de innovación con IA", "de la tendencia a la prueba" o necesite saber en qué paso está y qué sigue.
+description: Orquesta el Distilled AI Innovation Loop completo en 4 etapas (Explorar → Enfocar → Crear → Validar y decidir) y 11 pasos. Úsala cuando alguien quiera gestionar innovación con IA de punta a punta, no sepa por dónde empezar, pida "acompáñame en un proceso de innovación", "taller de innovación con IA", "de la tendencia a la prueba" o necesite saber en qué paso está y qué sigue.
 ---
 
 # Distilled AI Innovation Loop · Orquestador
 
 Método de Distilled Innovation para gestionar la innovación con IA como copiloto. La IA propone; el equipo decide.
 
-## Los 10 pasos y su artefacto
+## 4 etapas · 11 pasos y su artefacto
 
-| # | Paso | Artefacto que debe quedar | Skill especializada |
-|---|------|---------------------------|---------------------|
-| 0 | Contexto | Ficha de contexto + lectura crear/entregar/capturar valor | `di-ficha-contexto` |
-| 1 | Zoom Out | Mapa de fuerzas (12–20 hallazgos verificados) | `di-zoom-out` |
-| 2 | Radar | Señales en matriz certeza × tiempo | `di-zoom-out` |
-| 3 | Clasificar | 8–12 oportunidades, necesidades y problemas | `di-retos` |
-| 4 | Priorizar | Portafolio H1 · H2 · H3 y oportunidad elegida | `di-retos` |
-| 5 | Encuadrar | Scoping Canvas con "¿Cómo podríamos…?" | `di-retos` |
-| 6 | Idear | 20–40 ideas en matriz viabilidad × factibilidad | `di-ideacion-concepto` |
-| 7 | Concepto | Ficha de concepto (9 campos) | `di-ideacion-concepto` |
-| 8 | Prototipar | Supuesto asesino + prototipo de baja fidelidad | `di-experimentos` |
-| 9 | Probar | Test Card y Learning Card | `di-experimentos` |
-| 10 | Decidir | Hoja de ruta 3·6·12 meses y revisión mensual | `di-hoja-de-ruta` |
+El loop se recuerda por sus cuatro etapas; los pasos son el detalle operativo dentro de cada una.
+
+| Etapa | Pregunta | # | Paso | Artefacto que debe quedar | Skill especializada |
+|-------|----------|---|------|---------------------------|---------------------|
+| 1 · Explorar | ¿Qué está cambiando a nuestro alrededor? | 0 | Contexto | Ficha de contexto + lectura crear/entregar/capturar valor | `di-ficha-contexto` |
+| | | 1 | Zoom Out | Mapa de fuerzas (12–20 hallazgos verificados) | `di-zoom-out` |
+| | | 2 | Radar | Señales en matriz certeza × tiempo | `di-zoom-out` |
+| 2 · Enfocar | ¿Qué reto vale la pena resolver? | 3 | Clasificar | 8–12 oportunidades, necesidades y problemas | `di-retos` |
+| | | 4 | Priorizar | Portafolio H1 · H2 · H3 y oportunidad elegida | `di-retos` |
+| | | 5 | Encuadrar | Scoping Canvas con "¿Cómo podríamos…?" | `di-retos` |
+| 3 · Crear | ¿Qué respuesta podemos diseñar? | 6 | Idear | 20–40 ideas en matriz viabilidad × factibilidad | `di-ideacion-concepto` |
+| | | 7 | Concepto | Ficha de concepto (9 campos) | `di-ideacion-concepto` |
+| 4 · Validar y decidir | ¿Qué aprendimos y qué hacemos ahora? | 8 | Prototipar | Supuesto asesino + prototipo de baja fidelidad | `di-experimentos` |
+| | | 9 | Probar | Test Card y Learning Card | `di-experimentos` |
+| | | 10 | Decidir | Hoja de ruta 3·6·12 meses y revisión mensual | `di-hoja-de-ruta` |
 
 Para leer cómo la IA afecta el modelo de negocio antes de empezar, usa `di-exposicion-ia`.
 
 ## Cómo trabajar
 
 1. **Diagnostica el punto de partida.** Pregunta (máximo 3 preguntas) qué artefactos ya existen. Si no hay ficha de contexto, empieza por el paso 0.
-2. **Ubica el paso actual** en la tabla y dilo explícitamente: "Estamos en el paso N · Nombre".
+2. **Ubica la etapa y el paso actual** en la tabla y dilo explícitamente: "Estamos en la etapa X · Nombre, paso N · Nombre".
 3. **No te adelantes.** No propongas soluciones mientras se define el reto ni prototipos antes del concepto.
 4. **Ejecuta el paso** con el método de la skill especializada (si está instalada, deja que se active; si no, aplica el resumen de abajo).
 5. **Cierra cada respuesta** con: artefacto producido · qué guardar · siguiente paso.
