@@ -8,7 +8,7 @@ Curso digital, sistema de prompts, plantillas y **skills de Claude** para gestio
 
 | Carpeta | Contenido |
 | --- | --- |
-| `index.html` + `assets/` | Curso web por secciones: 9 módulos, casos reales (Distilled y América Latina), 6 visualizaciones 3D (Three.js), diagnóstico de madurez, matrices interactivas, generador de Test Card y caja de herramientas |
+| `index.html` + `assets/` | Curso web por secciones: 9 módulos, casos analizados por etapa del loop, 6 visualizaciones 3D (Three.js), diagnóstico de madurez, matrices interactivas, generador de Test Card y caja de herramientas |
 | `prompts/` | Sistema de prompts: 48 prompts y agentes (system prompts) en 8 archivos, **fuente única** del curso |
 | `skills/` | 8 skills de Claude del Distilled AI Innovation Loop |
 | `plantillas/` | 12 plantillas en Markdown + `canvas-imprimibles.html` (A4, imprimir o guardar como PDF) |

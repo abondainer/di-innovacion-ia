@@ -161,53 +161,25 @@ Capturar:`;
   $$('#loop-stages .stg').forEach(b => b.onclick = () => { const i = LOOP.findIndex(s => s.e === b.dataset.e); window.DI_LOOP_SHOW && window.DI_LOOP_SHOW(i); $('#stage-loop').scrollIntoView({ behavior: 'smooth', block: 'center' }); });
   window.DI_LOOP_ACTIVE = i => $$('#loop-stages .stg').forEach(b => b.classList.toggle('on', b.dataset.e === LOOP[i].e));
 
-  /* ---------- Casos ---------- */
+  /* ---------- Casos: análisis del método en la práctica ---------- */
   const CASES = window.DI_CASES || [];
-  const ETAPA_MAP = { vigilar: 'explorar', encuadrar: 'enfocar', idear: 'crear', probar: 'validar', escalar: 'validar' };
-  const caseStages = c => [...new Set(c.etapas.map(x => ETAPA_MAP[x]).filter(Boolean))];
-  const ORIG = { distilled: 'Distilled Innovation', latam: 'América Latina · reciente', clasico: 'Clásico global' };
-  const caseCard = (c, big) => `<a class="case-card ${c.origen}${big ? ' big' : ''}" href="#caso-${c.id}">
-    <span class="case-orig">${c.origen === 'distilled' ? '<img src="assets/brand/monogram-navy.png" alt="">' : ''}${ORIG[c.origen]}</span>
-    <b class="case-org">${esc(c.org)}</b><span class="case-meta">${esc(c.pais)} · ${esc(c.anio)}${c.ia ? ' · <em>con IA</em>' : ''}</span>
-    <span class="case-t">${esc(c.titulo)}</span>
-    <span class="case-m">${esc(c.metrica)}</span>
-    <span class="case-st">${caseStages(c).map(k => `<i style="--c:${stg(k).c}">${stg(k).t}</i>`).join('')}</span>
-    <span class="case-go">Ver el caso →</span></a>`;
-  const nD = CASES.filter(c => c.origen === 'distilled').length, nL = CASES.filter(c => c.origen === 'latam').length;
+  const GROUPS = [...STG.map(e => ({ k: e.k, t: `Etapa ${e.n} · ${e.t}`, q: e.q, c: e.c, m: e.m })), { k: 'ia', t: 'Capacidad con IA', q: '¿Cómo se instala la IA para que se quede?', c: '#0F3B49', m: 'kit' }];
+  const grp = k => GROUPS.find(g => g.k === k);
+  const caseCard = (c, withId) => `<article class="case ${c.origen}" ${withId ? `id="caso-${c.id}"` : ''} style="--c:${grp(c.etapa).c}">
+    <header><span class="case-orig">${c.origen === 'distilled' ? '<img src="assets/brand/monogram-navy.png" alt="">Distilled Innovation' : 'América Latina · fuente pública'}</span>
+    <h4>${esc(c.org)} <small>${esc(c.anio)}</small></h4><span class="case-pasos">${esc(c.pasos)}</span></header>
+    <div class="case-b"><h5>Qué hicimos</h5><p>${esc(c.hicimos)}</p>
+    <h5>Evidencia</h5><ul>${c.evidencia.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
+    <div class="case-so"><h5>Qué sustenta del método</h5><p>${esc(c.demuestra)}</p>
+    <div class="case-tools">${c.herramientas.map(([t, h]) => `<a href="${h}">${I('arrow-right')}${esc(t)}</a>`).join('')}</div>
+    ${c.fuentes ? `<div class="case-src">Fuentes: ${c.fuentes.map(([t, u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join(' · ')}</div>` : ''}</div>
+  </article>`;
+  $('#case-groups').innerHTML = GROUPS.map(g => { const cs = CASES.filter(c => c.etapa === g.k); return cs.length ? `<section class="case-group" style="--c:${g.c}">
+    <div class="cg-head"><span class="cg-bar"></span><div><h3>${g.t}</h3><p>${g.q}</p></div></div>
+    <div class="grid g2">${cs.map(c => caseCard(c, true)).join('')}</div></section>` : ''; }).join('');
   if ($('#ncasos')) $('#ncasos').textContent = CASES.length;
-  $('#case-stats').innerHTML = `<div><b>${nD}</b><span>casos de Distilled Innovation · 2015–2026</span></div><div><b>${nL}</b><span>casos recientes de América Latina con fuentes</span></div><div><b>${CASES.filter(c => c.ia).length}</b><span>casos con IA</span></div>`;
-  $('#case-featured').innerHTML = ['summa', 'argos', 'stelar', 'epm'].map(id => CASES.find(c => c.id === id)).filter(Boolean).map(c => caseCard(c, true)).join('');
-  const cf = { origen: 'todos', etapa: 'todas', q: '' };
-  const fBtns = (el, key, opts) => { el.innerHTML = opts.map(([v, l]) => `<button data-v="${v}" class="${cf[key] === v ? 'on' : ''}">${l}</button>`).join(''); $$('button', el).forEach(b => b.onclick = () => { cf[key] = b.dataset.v; fBtns(el, key, opts); drawCases(); }); };
-  const drawCases = () => {
-    const q = cf.q.toLowerCase();
-    const list = CASES.filter(c => (cf.origen === 'todos' || (cf.origen === 'ia' ? c.ia : c.origen === cf.origen)) && (cf.etapa === 'todas' || caseStages(c).includes(cf.etapa)) && (!q || JSON.stringify(c).toLowerCase().includes(q)));
-    $('#case-list').innerHTML = list.map(c => caseCard(c)).join('') || '<p class="muted">No hay casos con esos filtros.</p>';
-    $('#case-count').textContent = `${list.length} de ${CASES.length} casos`;
-  };
-  fBtns($('#case-f-origen'), 'origen', [['todos', 'Todos'], ['distilled', 'Distilled'], ['latam', 'América Latina'], ['ia', 'Con IA'], ['clasico', 'Clásicos']]);
-  fBtns($('#case-f-etapa'), 'etapa', [['todas', 'Todas'], ...STG.map(e => [e.k, e.t])]);
-  $('#case-search').oninput = e => { cf.q = e.target.value; drawCases(); };
-  drawCases();
-  $$('.rel-cases').forEach(el => { const cs = el.dataset.cases.split(',').map(id => CASES.find(c => c.id === id)).filter(Boolean); el.innerHTML = `<h3>${I('pin', 'h')}${el.dataset.title || 'Casos que lo muestran'}</h3><div class="grid g4 case-grid">${cs.map(c => caseCard(c)).join('')}</div><a class="more" href="#casos">Ver todos los casos →</a>`; });
-  if ($('#m8-proof')) $('#m8-proof').innerHTML = `<h3 style="margin-top:44px">Experiencia que respalda el método</h3><div class="grid g4 case-grid">${['summa', 'argos', 'epm', 'stelar'].map(id => caseCard(CASES.find(c => c.id === id))).join('')}</div><a class="more" href="#casos" style="color:var(--yellow)">Ver los ${nD} casos de Distilled →</a>`;
-  const dlg = $('#case-dlg');
-  const openCase = id => {
-    const c = CASES.find(x => x.id === id); if (!c) return false;
-    $('#case-dlg-body').innerHTML = `<button class="dlg-x" aria-label="Cerrar">×</button>
-      <span class="case-orig">${ORIG[c.origen]}</span>
-      <h2 id="case-dlg-title">${esc(c.org)}</h2><p class="case-meta">${esc(c.pais)} · ${esc(c.anio)}${c.ia ? ' · con IA' : ''}</p>
-      <h3 class="dlg-t">${esc(c.titulo)}</h3>
-      <div class="dlg-metric">${esc(c.metrica)}</div>
-      <div class="dlg-cols"><div><h4>El desafío</h4><p>${esc(c.desafio)}</p><h4>Qué se hizo</h4><ul>${c.intervencion.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
-      <div><h4>Resultados</h4><ul class="res">${c.resultados.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-      <div class="dlg-lesson"><b>Lección para el loop</b>${esc(c.leccion)}<div class="case-st">${caseStages(c).map(k => `<a href="#${stg(k).m}" style="--c:${stg(k).c}">Etapa ${stg(k).n} · ${stg(k).t} →</a>`).join('')}</div></div></div></div>
-      ${c.fuentes ? `<h4>Fuentes</h4><ul class="src">${c.fuentes.map(([t, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${esc(t)} ↗</a></li>`).join('')}</ul>` : `<p class="muted" style="font-size:13px">Fuente: registro de casos de éxito y actas de cierre de Distilled Innovation.</p>`}`;
-    $('.dlg-x', dlg).onclick = () => dlg.close();
-    if (!dlg.open) dlg.showModal(); dlg.scrollTop = 0; return true;
-  };
-  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
-  dlg.addEventListener('close', () => { if (location.hash.startsWith('#caso-')) history.replaceState(null, '', '#' + (lastPage || 'casos')); });
+  $$('.rel-cases').forEach(el => { const cs = el.dataset.cases.split(',').map(id => CASES.find(c => c.id === id)).filter(Boolean); el.innerHTML = `<h3>${I('briefcase', 'h')}${el.dataset.title || 'En la práctica'}</h3><div class="grid g2">${cs.map(c => caseCard(c)).join('')}</div><a class="more" href="#casos">Ver el análisis de casos por etapa →</a>`; });
+  if ($('#m8-proof')) $('#m8-proof').innerHTML = `<h3 style="margin-top:44px">Experiencia que respalda el método</h3><div class="grid g3 proof-grid">${['summa', 'argos', 'epm'].map(id => CASES.find(c => c.id === id)).filter(Boolean).map(c => `<a class="proof-card" href="#caso-${c.id}"><b>${esc(c.org)}</b><span>${esc(c.evidencia[0])}</span><small>${esc(c.pasos)}</small></a>`).join('')}</div>`;
 
   /* ---------- Navegación por secciones ---------- */
   const pages = $$('main > section, main > header');
@@ -225,10 +197,8 @@ Capturar:`;
   let lastPage = 'inicio';
   const route = () => {
     let id = decodeURIComponent(location.hash.slice(1)) || 'inicio';
-    if (id.startsWith('caso-')) { const cid = id.slice(5); if (CASES.some(c => c.id === cid)) { if (!document.body.classList.contains('paged')) showPage('casos'); openCase(cid); return; } id = 'casos'; }
     const el = document.getElementById(id) || document.getElementById('inicio');
     const pg = el.closest('main > section, main > header') || pages[0];
-    if (dlg.open) dlg.close();
     showPage(pg.id);
     if (el !== pg) setTimeout(() => el.scrollIntoView({ block: 'start' }), 30);
   };

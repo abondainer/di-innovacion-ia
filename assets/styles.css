@@ -427,3 +427,41 @@ section.mod.dark h3 svg.lucide.h,section.mod.dark h4 svg.lucide.h{color:var(--mi
   #stage-horizons .panel{display:none}
   .stage .lbl.tag{font-size:10.5px;padding:3px 8px}
 }
+
+/* ===== Casos · el método en la práctica ===== */
+.case-group{margin-top:44px}
+.cg-head{display:flex;gap:14px;align-items:stretch;margin-bottom:16px}
+.cg-bar{width:6px;border-radius:6px;background:var(--c);flex:none}
+.cg-head h3{margin:0 0 2px}
+.cg-head p{margin:0;color:var(--muted);font-style:italic}
+.case{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-top:5px solid var(--c);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;scroll-margin-top:90px;color:var(--ink)}
+.case:target{outline:3px solid var(--blue-ink);outline-offset:2px}
+.case header{padding:18px 20px 4px}
+.case h4{margin:4px 0 6px;font-size:1.1rem;color:var(--teal)}
+.case h4 small{font-weight:600;color:var(--muted);font-size:13px;margin-left:4px}
+.case-orig{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-ink)}
+.case-orig img{width:16px;height:16px;object-fit:contain}
+.case.latam .case-orig{color:#08705d}
+.case-pasos{display:inline-block;font-size:12px;font-weight:700;color:var(--teal);background:color-mix(in srgb,var(--c) 30%,#fff);border:1px solid color-mix(in srgb,var(--c) 70%,#0F3B49 30%);padding:3px 10px;border-radius:99px}
+.case h5{margin:14px 0 4px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.case-b{padding:0 20px 14px}
+.case-b p{margin:0;font-size:14.5px;line-height:1.55}
+.case-b ul{margin:0;padding-left:18px;font-size:14px}
+.case-b li{margin:3px 0}
+.case-so{margin-top:auto;background:#f4fbfd;border-top:1px solid var(--line);padding:2px 20px 16px}
+.case-so h5{color:var(--teal)}
+.case-so p{margin:0;font-size:14.5px;line-height:1.55;font-weight:500;color:#1e3a44}
+.case-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.case-tools a{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:#fff;background:var(--teal);padding:5px 11px;border-radius:99px;text-decoration:none}
+.case-tools a:hover{background:var(--blue-ink)}
+.case-tools svg.lucide{width:13px;height:13px;color:var(--mint)}
+.case-src{margin-top:10px;font-size:12px;color:var(--muted)}
+.case-src a{color:var(--blue-ink)}
+section.mod.dark .case a.more{color:var(--blue-ink)}
+.proof-grid{margin-top:4px}
+.proof-card{display:flex;flex-direction:column;gap:4px;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(188,248,255,.25);text-decoration:none}
+section.mod.dark a.proof-card{color:#fff}
+.proof-card b{font-size:15px;color:#fff}
+.proof-card span{font-size:14px;color:var(--mint);font-weight:600}
+.proof-card small{font-size:12px;color:#cfe7ec}
+.proof-card:hover{border-color:var(--yellow)}
