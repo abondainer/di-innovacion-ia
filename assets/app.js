@@ -1,6 +1,6 @@
 /* Gestión de la innovación con IA · Distilled Innovation — lógica del curso */
 (function () {
-  const GH = 'https://github.com/abondainer/di-innovacion-ia';
+  const GH = 'https://github.com/DistilledInnovation/di-gestion-innovacion-ia';
   const ghUrl = p => !p ? GH : (p.endsWith('.md') || p.includes('.') ? `${GH}/blob/main/${p}` : `${GH}/tree/main/${p}`);
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
